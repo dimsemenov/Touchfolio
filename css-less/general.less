@@ -40,7 +40,6 @@ html, body {
 }
 #main-wrap {
 	height: 100%;
-	border-top: 3px solid @font-color;
 	.box-sizing();
 }
 #page {
@@ -112,14 +111,9 @@ html, body {
 	li.important-item a {
 		background: #afeef5;
 	}
-	// a:active {
-	// 	border-bottom-color: fadeout(@menu-item-hover-color, 50%);
-	// 	color: fadeout(@menu-item-color, 30%);
-	// }
+	
 	li.current-menu-item > a {
 		color: @selected-menu-item-color;
-		
-		//color: #777;
 		font-weight: bold;
 	}
 }
@@ -512,7 +506,7 @@ a.menu-button {
 .collapsed-layout {
 	#main-wrap {
 		background: @sidebar-background;
-		padding: 0 1em;
+		padding: 0;
 		width: auto !important;
 	}
 	p {
@@ -537,7 +531,6 @@ a.menu-button {
 		margin: 0;
 		
 		background: @sidebar-background;
-		border-bottom: 2px solid @text-color;
 
 		.menus-container {
 			clear: both;
@@ -614,7 +607,6 @@ a.menu-button {
 	}
 	.footer-copy {
 		background: none;
-		border-top: 1px solid @text-color;
 		p {
 			width: 80%;
 			padding-left: 10%;
@@ -624,7 +616,6 @@ a.menu-button {
 		}
 	}
 	#secondary {
-		border-top: 2px solid @text-color;
 		float: none;
 		width: 100%;
 		padding: 1.5em 0;
@@ -832,12 +823,11 @@ a.menu-button {
 		#primary,
 		#secondary .widget,
 		.footer-copy p {
-			padding-left: 0;
-			padding-right: 0;
+			padding-left: 1em !important;
+			padding-right: 1em !important;
 		}
 		.footer-copy {
 			background: none;
-			border-top: 1px solid @text-color;
 		}
 		.video-overlay {
 			.video-container {
@@ -848,6 +838,8 @@ a.menu-button {
 			max-width: 80%;
 		}
 	}
+
+
 	.ds-gallery-page {
 		.main-header {
 			top: @gallery-padding;

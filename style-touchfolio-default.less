@@ -2,24 +2,28 @@
 //
 // Touchfolio Modern Helvetica Skin. Inspired by MoreCSS =)
 //
-// 	1. Fonts and text links (family, color)
-// 	2. Sidebar, content background, menu
-// 	3. Logo size and position
-// 	4. Footer and other
-// 	5. Overriding styles (skin-specific)
+// 	1. Fonts and text links
+// 	2. Sidebar menu
+// 	3. Background colors
+// 	4. Widgets
+// 	5. Logo size and position
+// 	6. Footer size, gallery padding and other stuff
 // 
 ////////////////////////////////////////////////////////////////////
 
 
 
 
-// 1. Fonts and links
-// -------------------------
+////////////////////////////////////////////
+//
+// 1. Fonts & links
+//
+////////////////////////////////////////////
 
 @body-font:              "Helvetica Neue", Helvetica, Arial, sans-serif;
 @body-font-line-height:  1.6;
 
-@text-color:             #3b3a37;
+@text-color:             #3b3a37; // main body text color
 @secondary-text-color:   #929699;
 @sidebar-text-color:     @text-color;
 
@@ -41,8 +45,11 @@
 
 
 
+////////////////////////////////////////////
+//
 // 2. Menu
-// -------------------------
+//
+////////////////////////////////////////////
 
 @menu-item-color:           #333;
 @menu-item-hover-color:     #888;
@@ -61,8 +68,11 @@
 
 
 
-// 2. Background colors
-// -------------------------
+////////////////////////////////////////////
+//
+// 3. Background colors
+//
+////////////////////////////////////////////
 
 @content-background: #F8F8F6;
 @sidebar-background: #FFF;
@@ -73,11 +83,9 @@
 
 ////////////////////////////////////////////
 //
-// 2. Sidebar + menu
+// 4. Widgets
 //
 ////////////////////////////////////////////
-
-
 
 @widget-title-font-size:     13px;
 @widget-title-line-height:   20px;
@@ -89,13 +97,13 @@
 
 ////////////////////////////////////////////
 //
-// 3. Logo size and position
+// 5. Logo size and position
 //
 ////////////////////////////////////////////
 
 // In sidebar
 @default-logo-margin: 2.6em 0 9px 0;
-@default-logo-width: auto;
+@default-logo-width:  auto;
 
 // Gallery page on small screens (collapsed)
 @collapsed-gallery-logo-padding:       7px 0 0 0;
@@ -114,7 +122,7 @@
 
 ////////////////////////////////////////////
 //
-// 4. Footer and other stuff
+// 6. Footer and other
 //
 ////////////////////////////////////////////
 
@@ -131,70 +139,9 @@
 @sprite-url:      url(img/touchfolio-sprite-default.png);
 
 
+// Some overriding styles
+
 
 
 // Don't remove this line, it adds all styles
 @import "css-less/general.less";
-
-
-
-
-h1 {
-	letter-spacing: -0.03em;
-}
-.absc {
-	font-weight: normal;
-}
-#fb-root {
-	display: none !important;
-}
-#main-wrap {
-	border-top: 0;
-}
-.album-info-text {
-	font-weight: bold;
-}
-.collapsed-layout #main-wrap {
-	padding: 0;
-}
-.collapsed-layout .main-header,
-.collapsed-layout #secondary,
-.collapsed-layout .footer-copy {
-	border: 0;
-}
-.entry-title a:hover {
-	color: @link-hover-color;
-}
-.two-dim-slider .slider-album-indicator .album-info-text {
-	height: 22px;
-	padding: 5px 16px;
-}
-.album-info-block .album-content {
-	font-size: .875em;
-}
-.albums-thumbnails .project-description {
-	font-size: 0.875em;
-	color: #666;
-}
-.close-project { 
-	font-size: 0.875em;
-}
-.site-description {
-	color: #999;
-}
-.tooltip-text {
-	font-weight: bold;
-}
-@media only screen and (max-width: 500px) {
-	.collapsed-layout { 
-	#primary,
-	#secondary .widget,
-	.footer-copy p {
-			padding-left: 1em !important;
-			padding-right: 1em !important;
-		}
-	}
-
-}
-
-
