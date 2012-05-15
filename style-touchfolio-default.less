@@ -1,0 +1,200 @@
+////////////////////////////////////////////////////////////////////
+//
+// Touchfolio Modern Helvetica Skin. Inspired by MoreCSS =)
+//
+// 	1. Fonts and text links (family, color)
+// 	2. Sidebar, content background, menu
+// 	3. Logo size and position
+// 	4. Footer and other
+// 	5. Overriding styles (skin-specific)
+// 
+////////////////////////////////////////////////////////////////////
+
+
+
+
+// 1. Fonts and links
+// -------------------------
+
+@body-font:              "Helvetica Neue", Helvetica, Arial, sans-serif;
+@body-font-line-height:  1.6;
+
+@text-color:             #3b3a37;
+@secondary-text-color:   #929699;
+@sidebar-text-color:     @text-color;
+
+@link-color:             #000;
+@link-hover-color:       #C00;
+
+@title-color:            #333;
+@title-font:             inherit;
+@title-weight:           bold;
+
+@font-smallest:          .75em;
+@font-small:             .875em;
+@font-small-line-height: 1.6em;
+@font-small-em-size:     1 / @font-small; // for alignment
+
+@selection-bg-color:     #C00;
+@selection-text-color:   #FFF;
+
+
+
+
+// 2. Menu
+// -------------------------
+
+@menu-item-color:           #333;
+@menu-item-hover-color:     #888;
+@selected-menu-item-color:  #333;
+
+@menu-font-weight:          normal;
+@menu-font-size:            13px;
+@menu-line-height:          20px;
+
+@projects-menu-font-size:   13px;
+@projects-menu-line-height: 20px;
+@projects-menu-font-color:  #999;
+
+@menus-margin: 10px; // Margin between menu / secondary menu / site description
+
+
+
+
+// 2. Background colors
+// -------------------------
+
+@content-background: #F8F8F6;
+@sidebar-background: #FFF;
+
+
+
+
+
+////////////////////////////////////////////
+//
+// 2. Sidebar + menu
+//
+////////////////////////////////////////////
+
+
+
+@widget-title-font-size:     13px;
+@widget-title-line-height:   20px;
+@widget-body-font-size:      13px;
+@widget-body-line-height:    20px;
+
+
+
+
+////////////////////////////////////////////
+//
+// 3. Logo size and position
+//
+////////////////////////////////////////////
+
+// In sidebar
+@default-logo-margin: 2.6em 0 9px 0;
+@default-logo-width: auto;
+
+// Gallery page on small screens (collapsed)
+@collapsed-gallery-logo-padding:       7px 0 0 0;
+@collapsed-gallery-logo-width:         100px;
+@collapsed-gallery-menu-area-padding:  0 8px 0 8px;
+@collapsed-gallery-menu-button-float:  right;
+@collapsed-gallery-menu-button-margin: 0 -8px 0 0;
+
+// Regular page on small screens 
+@collapsed-layout-logo-padding:       20px 16px 20px 16px;
+@collapsed-layout-logo-width:         140px;
+@collapsed-layout-menu-button-margin: 13px 8px 13px 16px;
+
+@site-description-font-size: 12px; // text under logo
+
+
+////////////////////////////////////////////
+//
+// 4. Footer and other stuff
+//
+////////////////////////////////////////////
+
+@footer-copy-text-color:        @secondary-text-color;
+@footer-max-height:             4.4em; // max height of footer when site width is more then 960px
+
+@sidebar-width-full:            16em;
+@content-max-width:             640px;
+@content-large-image-max-width: @content-max-width * 1.2;
+
+
+@gallery-padding: 8px; // space between gallery and browser edges
+@preloader-url:   url(img/preloader.gif);
+@sprite-url:      url(img/touchfolio-sprite-default.png);
+
+
+
+
+// Don't remove this line, it adds all styles
+@import "css-less/general.less";
+
+
+
+
+h1 {
+	letter-spacing: -0.03em;
+}
+.absc {
+	font-weight: normal;
+}
+#fb-root {
+	display: none !important;
+}
+#main-wrap {
+	border-top: 0;
+}
+.album-info-text {
+	font-weight: bold;
+}
+.collapsed-layout #main-wrap {
+	padding: 0;
+}
+.collapsed-layout .main-header,
+.collapsed-layout #secondary,
+.collapsed-layout .footer-copy {
+	border: 0;
+}
+.entry-title a:hover {
+	color: @link-hover-color;
+}
+.two-dim-slider .slider-album-indicator .album-info-text {
+	height: 22px;
+	padding: 5px 16px;
+}
+.album-info-block .album-content {
+	font-size: .875em;
+}
+.albums-thumbnails .project-description {
+	font-size: 0.875em;
+	color: #666;
+}
+.close-project { 
+	font-size: 0.875em;
+}
+.site-description {
+	color: #999;
+}
+.tooltip-text {
+	font-weight: bold;
+}
+@media only screen and (max-width: 500px) {
+	.collapsed-layout { 
+	#primary,
+	#secondary .widget,
+	.footer-copy p {
+			padding-left: 1em !important;
+			padding-right: 1em !important;
+		}
+	}
+
+}
+
+

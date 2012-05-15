@@ -1,0 +1,86 @@
+/* LESS mixins 
+--------------------------------------------- */
+.font-small() {
+	font-size: @font-small;
+	line-height: @font-small-line-height;
+}
+.rounded (@radius: 6px) {
+	-webkit-border-radius: @radius;
+	   -moz-border-radius: @radius;
+	        border-radius: @radius;
+}
+.box-shadow (@x: 0, @y: 0, @blur: 2px, @color: #000) {
+	-webkit-box-shadow: @arguments;
+	   -moz-box-shadow: @arguments;
+	        box-shadow: @arguments;
+}
+.box-sizing (@type: border-box) {
+	-webkit-box-sizing: @type;
+	   -moz-box-sizing: @type;
+	     -o-box-sizing: @type;
+	        box-sizing: @type;
+}
+.transition (@property, @duration: .2s, @timing: ease-in-out) {
+	-webkit-transition: @arguments;
+	   -moz-transition: @arguments;
+	     -o-transition: @arguments;
+	        transition: @arguments;
+}
+.tab-size (@spaces: 2) {
+	-webkit-tab-size: @spaces;
+	   -moz-tab-size: @spaces;
+	     -o-tab-size: @spaces;
+	        tab-size: @spaces;
+}
+.transform(@string){
+	-webkit-transform: @string;
+	-moz-transform: 	 @string;
+	-ms-transform: 		 @string;
+	-o-transform: 		 @string;
+	transform: 		 @string;
+}
+.scale (@factor) {
+	-webkit-transform: scale(@factor);
+	-moz-transform: 	 scale(@factor);
+	-ms-transform: 		 scale(@factor);
+	-o-transform: 		 scale(@factor);
+	transform: 		 scale(@factor);
+}
+.rotate (@deg) {
+	-webkit-transform: rotate(@deg);
+	-moz-transform: 	 rotate(@deg);
+	-ms-transform: 		 rotate(@deg);
+	-o-transform: 		 rotate(@deg);
+}
+.animation (@name, @duration: .3s, @delay: 0, @ease: ease) {
+	-webkit-animation: @name @duration @delay @ease;
+	-moz-animation:    @name @duration @delay @ease;
+	-ms-animation:     @name @duration @delay @ease;
+	-o-animation:     @name @duration @delay @ease;
+}
+.opacity-transition() {
+	.transition(opacity, 0.3s, ease-out);
+}
+
+
+// helpers
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.fade-out {
+	opacity: 0 !important;
+}
+
+
+
+
+

@@ -1,0 +1,123 @@
+/* CSS styles for gallery admin page */
+
+#media-items {
+	width: 630px;
+}
+#media-items .media-item {
+	border: 0 !important;
+}
+#media-items .describe-toggle-on, 
+#media-items .describe-toggle-off {
+	display: none;
+}
+#media-items .media-item {
+	width: 110px;
+	height: 110px;
+	padding: 4px;
+	background: #f9f9f9;
+	margin: 4px;
+	float: left;
+	display: block;
+	cursor: pointer;
+
+}
+#media-items .media-item .progress {
+float: left;
+}
+#media-items .media-item:hover {
+	background: #CCC;
+}
+#media-items .pinkynail {
+	position: relative;
+	float: none;
+	margin: 0 auto;
+	max-width: 110px;
+	max-height: 110px;
+	cursor: pointer;
+}
+#media-items .thumbnail {
+	margin: 4px;
+	height: 110px;
+	margin: 0;
+	padding: 0;
+}
+#media-items .describe tbody {
+	display: none;
+}
+
+
+#media-items .dsframework-thickbox-add-image-button {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 110px;
+	padding: 0;
+	margin: 4px;
+	height: 110px;
+	cursor: pointer;
+	z-index: 5;
+}
+#media-items .media-item-info td {
+	display: none;
+}
+#media-items .media-item-info td.A1B1  {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+#media-items .media-item-info td.A1B1 .button {
+	display: none;
+}
+#media-items .media-item-info .A1B1 p {
+	margin: 0;
+}
+#media-items .media-item-info .A1B1 .thumbnail {
+	position: relative;
+	float: none;
+	margin: 0 auto;
+	max-width: 110px;
+	max-height: 110px;
+	cursor: pointer;
+	height: auto;
+}
+
+#media-items #save {
+	display: none;
+}
+#media-items .filename {
+	display: none;
+}
+#media-items .media-item:hover .dsframework-thickbox-add-image-button {
+	background: url('../img/admin_icons.png') -151px -32px;
+	width: 26px;
+	height: 24px;
+	top: 6px;
+	left: 6px;
+}
+#media-items .media-item .dsframework-thickbox-add-image-button.ds-btn-error {
+	background: url('../img/admin_icons.png') -111px -32px;
+	width: 26px;
+	height: 24px;
+	top: 6px;
+	left: 6px;
+}
+#media-items .media-item .dsframework-thickbox-add-image-button.ds-btn-complete {
+	background: url('../img/admin_icons.png') -69px -32px;
+	width: 26px;
+	height: 24px;
+	top: 6px;
+	left: 6px;
+}
+#media-items .media-item .dsframework-thickbox-add-image-button.ds-btn-progress {
+	background: url('../img/preloader.gif') 0 0 #ffee5e;
+width: 20px;
+height: 20px;
+top: 6px;
+left: 6px;
+border-radius: 12px;
+border: 2px solid #ffee5e;
+} 
+.ml-submit,
+.savebutton {
+	display: none !important;
+}

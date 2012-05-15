@@ -1,0 +1,164 @@
+body {
+	font-family: @body-font;
+	color: @text-color;
+	font-size: 100%;
+	line-height: @body-font-line-height;
+}
+
+
+// links 
+a, 
+a:link, 
+a:visited,
+a:active,
+a:focus {
+	color: @link-color;
+	text-decoration: none;
+	outline: none;
+	//.transition(all, .2s);
+	-webkit-tap-highlight-color: rgba(0,0,0,0.1);
+}
+a:hover {
+	color: @link-hover-color;
+	background: fadeout(@link-hover-color, 95%);
+	text-decoration: none;
+}
+
+a:focus {
+	outline: thin dotted;
+}
+a:hover,
+a:active {  
+	outline: 0;
+}
+
+// text selection
+::-moz-selection, ::selection{
+	background: @selection-bg-color;
+	color: @selection-text-color;
+	text-shadow:none;
+}
+
+
+p, 
+li, 
+blockquote,
+.text-block {
+	a {
+		border-bottom: 1px solid @link-color;
+		border-bottom-color: fadeout(@link-color, 70%);
+	}
+	a:hover {
+		border-bottom-color: @link-hover-color;
+	}
+}
+
+.underlined {
+	border-bottom: 1px solid @link-color;
+	border-bottom-color: fadeout(@link-color, 70%);
+}
+.underlined:hover {
+	border-bottom-color: @link-hover-color;
+}
+
+small {
+	font-size: 0.75em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: @title-weight;
+	font-family: @title-font;
+}
+
+h1 {
+	font-size: 2.5em; 
+	line-height: 1.1em;
+}
+h2 {
+	font-size: 1.8em;
+	margin: 1.05em 0 .55em;
+	line-height: 1.2em;
+}
+h3 {
+	font-size: 1.25em;
+	margin: 1.1em 0 0.5em;
+	line-height: 1.2em;
+}
+h4,h5,h6 {
+	font-size: 1em;
+	margin: 1.5em 0 0.5em;
+}
+p {
+	margin-bottom: 1em;
+	//width: auto;
+	img {
+		display: block;
+		height: auto;
+		width: auto;
+		max-width: @content-large-image-max-width;
+	}
+}
+ul, ol {
+	margin: 0 0 1em 2em;
+}
+li {
+	margin: 0 0 0.5em 0;
+}
+blockquote {
+	margin: 1em 0 1em 2em;
+}
+pre {
+	font-family: Courier, monospace;
+	font-size: 0.75em;
+	line-height: 1.2em;
+}
+
+
+
+// Form styling
+input[type="submit"],
+button,
+.button {
+	.rounded(4px);
+	color: @content-background;
+	font-family: @body-font;
+	background:  @text-color;
+	font-weight: bold;
+
+	cursor: pointer;
+	display: block;
+	outline: none;
+	padding: 0.75em 1.5em;
+	position: relative;
+	text-decoration: none;
+	
+	border: 0;
+	.transition(background-color, 0.3s);
+	&:hover {
+		background: lighten(@text-color, 10%);
+	}
+	&:active {
+		background: darken(@text-color, 10%);
+	}
+}
+form {
+	label {
+		display: block;
+		font-weight: bold;
+		padding-bottom: 0.25em;
+		margin: 0;
+		font-size: @font-small;
+		line-height: @font-small-line-height;
+		cursor: pointer;
+	}
+	input, textarea {
+		padding: @font-small-em-size / 2;
+		font-size: @font-small;
+		line-height: @font-small-line-height;
+		border: 1px solid #999;
+		margin: 0;
+	}
+}
+
+
+

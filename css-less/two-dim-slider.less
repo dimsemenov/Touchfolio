@@ -1,0 +1,683 @@
+////////////////////////////////////////////////////////////////////
+//
+// Touchfolio Two Dimensional Slider Styles
+//
+// 	1. Preloader
+// 	2. Video-related things
+// 	3. Wrappers, image containers e.t.c
+// 	4. Album name + count (1 of n)
+// 	5. Collapsed slider styles 
+//  6. Album info block (share, close project button)
+//  7. Specific gallery page styles
+//  
+////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+.two-dim-slider {
+	position: relative;
+	width: 600px;
+	height: 600px;
+	z-index: 1;
+
+
+
+	////////////////////////////////////////////
+	//
+	//  1 Preloader
+	//
+	////////////////////////////////////////////
+	.preloader-container {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		.preloader-spinner {
+			width: 20px;
+			height: 20px;
+			margin-left: -10px;
+			margin-top: -10px;
+			background: @preloader-url;
+		}
+	}
+
+
+	////////////////////////////////////////////
+	//
+	// 2 Video-related things
+	//
+	////////////////////////////////////////////
+	a.play-button-container {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		display: block;
+		border: 0;
+		&:hover {
+			opacity: .8;
+			background: none;
+			border: 0;
+		}
+	}
+	.play-button {
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		width: 64px;
+		height: 64px;
+		margin-left: -32px;
+		margin-top: -32px;
+		display: block;
+
+		cursor: pointer !important;
+		background: @sidebar-background;
+		.rounded(32px);
+		overflow: hidden;
+		.transition(opacity, .3s);
+
+		
+		.play-button-icon {
+			width: 64px;
+			height: 64px;
+			background: @sprite-url no-repeat -96px 0 transparent;
+			display: block;
+			float: left;
+		}
+		&.play-button-loading {
+			.play-video-loading-icon {
+				width: 64px;
+				display: block;
+				float: left;
+				height: 64px;
+				background: @preloader-url no-repeat center center transparent;
+			}
+			.play-icons-wrap {
+				margin-left: -64px;
+			}
+		}
+
+		.play-icons-wrap {
+			width: 128px;
+			margin: 0;
+			display: block;
+			margin-left: 0;
+			.transition(all, 0.3s, cubic-bezier(0.235, 0.640, 0.565, 1.000));
+		}
+	}
+	.back-to-list-button {
+		position: absolute;
+		z-index: 30;
+		left: @gallery-padding;
+		top: @gallery-padding + 8px;
+		padding: 4px 8px 3px;
+		background: @sidebar-background;
+		display: block;
+	}
+	
+	.video-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 26;
+		bottom: 0;
+		right: 0;
+		display: none;
+
+		.video-container {
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			margin: 3em; // border
+			overflow: hidden;
+		}
+
+		.video-close-button {
+			position: absolute;
+			z-index: 30;
+			right:  @gallery-padding;
+			top:  @gallery-padding + 8px;
+			padding: 4px 8px 3px;
+			background: @sidebar-background;
+			display: block;
+			font-size: @font-small;
+			
+			
+		}
+	}
+	.close-button {
+		cursor: pointer;
+		display: block;
+
+		width: 32px;
+		height: 32px;
+		position: relative;
+		.transition(all, .3s);
+
+		.close-icon {
+			margin: 0;
+			width: 32px;
+			height: 32px;
+			background: @sprite-url no-repeat -64px -32px;
+			background-color: @sidebar-background;
+			display: block;
+		}
+	}
+
+
+
+
+	////////////////////////////////////////////
+	//
+	// 3 Wrappers, images containers e.t.c
+	//
+	////////////////////////////////////////////
+	.slider-wrapper {
+		//position: relative;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		margin: 0;
+		zoom: 1;
+		z-index: 20;
+		padding: 0;
+
+		// cursor: move; 
+		// cursor: -webkit-grab;
+		// cursor: -moz-grab;
+		// cursor: -o-grab;
+		// cursor: grab;
+	}
+	.drag-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+	}
+	.album-meta,
+	.item-meta {
+		display: none;
+	}
+	.block {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		-o-transform-origin: 0;
+		
+		img.blocked-by-loop {
+			visibility: hidden !important;
+		}
+	}
+	.block-inside {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		margin: 0; 
+		overflow: hidden;
+	}
+
+	.top {
+		top: -100%;
+	}
+	.bottom {
+		top: 100%;
+	}
+	.left {
+		left: -100%;
+	}
+	.right {
+		left: 100%;
+	}
+	.last-block {
+		background: none !important;
+		img {
+			visibility: hidden !important;
+		}
+	}
+
+
+
+
+	////////////////////////////////////////////
+	//
+	// 4 Arrows navigation 
+	//
+	////////////////////////////////////////////
+
+	.arrow-left a,
+	.arrow-right a {
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		.transition(none, 0s);
+		&:hover {
+			background: none;
+			border: 0;
+			color: @sidebar-text-color;
+			//opacity: .8;
+			.info-text.info-text-visible {
+				visibility: visible;
+				opacity: 1;
+				color: @sidebar-text-color;
+			}
+		}
+		&:active {
+
+			.icon {
+				//margin-top: 17px;
+			}
+		}
+		.info-text {
+			display: block;
+			visibility: hidden;
+			background: @sidebar-background;
+			white-space: nowrap;
+			float: left;
+			position: absolute;
+			left: 32px;
+			top: 8px;
+			padding: 7px 8px 6px;
+			font-size: 12px;
+			line-height: 18px;
+			opacity: 0;
+			.transition(all, .3s);
+		}
+	}
+	.arrow-right a {
+	
+		.info-text {
+
+			left: auto;
+			right: 32px;
+			&.info-text-visible  {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+	}
+
+
+	.arrow-left, 
+	.arrow-right {
+		position: absolute;
+		top: 50%;
+		
+		z-index: 25;
+		display: block;
+		width: 48px;
+		height: 48px;
+		
+		margin: 0;
+		.icon-bg {
+		//	margin: 16px;
+			width: 48px;
+			height: 48px;
+			display: block;
+			position: relative;
+			margin-top: -24px;
+			cursor: pointer;
+			
+			
+
+			.icon {
+
+				float: left;
+				display: block;
+				margin: 8px 0 0 8px;
+				width: 32px;
+				height: 31px;
+				background: @sprite-url;
+				background-color: @sidebar-background;
+				.transition(all, .3s);
+			}
+		}
+
+		&.disabled-arrow {
+			.icon {
+				opacity: 0.2;
+			}
+		}
+	}
+	.arrow-left {
+		left: @gallery-padding;
+		.icon-bg {
+			.icon {
+				margin-left: 0;
+				background-position: -32px -32px;
+			}
+		}
+		&.prev-album-arrow .icon-bg .icon {
+			
+			background-position: -32px 0;
+		}
+		
+	}
+	.arrow-right {
+		right: @gallery-padding;
+		
+		.icon-bg {
+			.icon {
+				margin-left: 16px;
+				background-position: 0 -32px;
+			}
+
+		}
+		&.next-album-arrow .icon-bg .icon {
+			background-position: 0 0;
+		}
+	}
+	
+	
+	
+	////////////////////////////////////////////
+	//
+	// Album name + count (1 of n)
+	//
+	////////////////////////////////////////////		
+	.slider-album-indicator {
+		position: absolute;
+		z-index: 23;
+		color: @sidebar-text-color;
+		width: auto;
+		//padding: 0 0 1em 0;
+		bottom: 24px + @gallery-padding;
+		right: @gallery-padding;
+
+		.album-info-text {
+			font-size: 14px;
+			background:@sidebar-background;
+			height: 32px;
+			float: right;
+			padding: 5px 8px 5px 12px;
+			.transition(opacity, .25s);
+			&.album-text-hidden {
+				opacity: 0;
+			}
+		}
+		a.album-name-indicator {
+			margin-right: .5em;
+		}
+		.item-count-indicator {
+			font-size: @font-smallest;
+			text-shadow: 0 1px 1px rgba(0,0,0,.1);
+		}
+	}
+		
+		
+		
+	
+	////////////////////////////////////////////
+	//
+	// Collapsed slider styles
+	//
+	////////////////////////////////////////////
+	&.smaller-collapsed-slider {
+		.slider-album-indicator {
+			bottom: 8px + @gallery-padding;
+			.album-info-text {
+				display: block !important;
+				width: 32px;
+				height: 32px;
+				float: right;
+				text-indent: -9999px;
+				background: @sprite-url no-repeat -64px 0 transparent;
+				background-color: @sidebar-background;
+				//margin: 28% auto;
+				text-decoration: none;
+				border: 0;
+				padding: 0;
+
+			}
+			.item-count-indicator {
+				display: none;
+			}
+			.album-info-block { 
+				display: block;
+
+			}
+		}
+
+		.video-overlay .video-container {
+			margin: 0;
+		}
+	}
+	.grab-cursor {
+		cursor:url(img/grab.png) 8 8, move; 
+	}
+	.grabbing-cursor{ 
+		cursor:url(img/grabbing.png) 8 8, move;
+	}
+
+	.auto-cursor{ cursor:auto; }
+	.slider-album-indicator {
+		padding-bottom: 0 !important;
+	}
+
+}
+
+
+
+
+////////////////////////////////////////////
+//
+// Album info block (share, close project button)
+//
+////////////////////////////////////////////
+.album-info-block {
+	-webkit-text-size-adjust:none;
+	position: absolute;
+	display: none;
+	overflow: auto;
+	z-index: 50;
+
+	width: 65%;
+	padding: 0;
+
+	background: @sidebar-background;
+	
+	right: 0;
+	bottom: 24px + @gallery-padding;
+	max-width: 40em;
+	
+	color: @sidebar-text-color;
+
+	.bottom-bar {
+		width: 100%;
+	}
+	.info-container {
+		width: auto;
+		height: auto;
+		padding: 1.5em;
+	}
+	h3.album-title {
+		margin-top: 0;
+	}
+	.album-content {
+		font-size: @font-small;
+		line-height: @font-small-line-height;
+		margin: 0;
+	}
+}
+
+
+
+
+.close-project {
+	position: relative;
+	float: right;
+	font-size: @font-small;
+	line-height: 1.2em;
+}
+.share-project {
+	margin-top: 1em;
+}
+a.pin-it-btn,
+a.facebook-share-btn {
+	width: 43px;
+	height: 21px;
+	background: @sprite-url no-repeat -192px 0 transparent;
+	display: block;
+	border: 0;
+	cursor: pointer;
+	float: left;
+	opacity: .75;
+	&:hover {
+		opacity: 1;
+		background-color: transparent;
+	}
+}
+a.facebook-share-btn {
+	margin-left: 8px;
+	width: 53px;
+	height: 20px;
+	background-position: -192px -32px;
+	display: block;
+	border: 0;
+}
+
+
+.slider-data  {
+	display: block;
+	color: @sidebar-background;
+	z-index: -1;
+	overflow: hidden;
+	a {
+		color: @sidebar-background;
+		border: 0;
+		background: none;
+	}
+	.album-meta {
+		display: block;
+	}
+	.two-dim-albums-list ul {
+		//display: none;
+	}
+}
+.action-notifier {
+	opacity: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: @sidebar-background;
+	z-index: 9999;
+	white-space: nowrap;
+	padding: 0 8px;
+	font-size: 12px;
+	-moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -o-user-select: none;
+   user-select: none;
+	&.action-notifier-visible {
+		opacity: 1;
+	}
+}
+
+
+////////////////////////////////////////////
+//
+// Specific gallery page styles
+//
+////////////////////////////////////////////
+body.ds-gallery-page {
+	background: @sidebar-background;
+}
+.ds-gallery-page {
+	height: 100%;
+	overflow: hidden;
+	#main-wrap {
+		border-color: transparent;
+	}
+	#page, #main {
+		height: 100%;
+		float: none;
+		margin: 0;
+	}
+	.main-header {
+		position: relative;
+		background: @sidebar-background;
+		overflow-y: auto;
+		height: 100%;
+		float: left;
+		&::-webkit-scrollbar {
+			background:fadeout(@menu-item-color, 90%);
+			width:8px;
+			height:8px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color:fadeout(@menu-item-color, 80%);
+ 		}
+		&::-webkit-scrollbar-thumb:hover {
+			background-color:fadeout(@menu-item-color, 70%);
+		}
+	}
+	#primary {
+		height: 100%;
+		//overflow: hidden;
+		padding: 0;
+	}
+	#content {
+		height: 100%;
+	}
+	.push {
+		display: none;
+	}
+	.two-dim-slider {
+		left: @sidebar-width-full;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		padding: @gallery-padding;
+		width: auto;
+		height: auto;
+
+		overflow: hidden;
+	}
+	.mouse-follow-cursor {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 9999;
+		background: @sidebar-background;
+		color: @menu-font-color;
+		font-size: 13px;
+		padding: 2px 4px;
+		white-space: nowrap;
+	}
+	// todo
+	// .instructions-container {
+	// 	display: block;
+	// 	position: absolute;
+	// 	left: 50%;
+	// 	top: 50%;
+	// 	z-index: 150;
+	// 	.transition(all, .5s, ease-out);
+	// 	opacity: 0;
+	// 	.scale(1.1);
+	// 	&.instructions-visible {
+	// 		opacity: 1;
+	// 		.scale(1);
+	// 	}
+	// }
+	// .instructions {
+	// 	padding: .5em;
+	// 	width: 15em;
+	// 	height: auto;
+	// 	margin-left: -8em;
+	// 	margin-top: -1em;
+	// 	background: @sidebar-background;
+	// 	text-align: center;
+	// }
+}
+
+

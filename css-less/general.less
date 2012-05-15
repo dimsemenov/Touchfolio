@@ -1,0 +1,885 @@
+////////////////////////////////////////////////////////////////////
+//
+// Touchfolio General Css file
+//
+// 	1. Layout: Main wrappers and containers
+// 	2. Menu (normal and collapsed on mobile)
+// 	3. Logo, site description
+// 	4. Widgets
+// 	5. Footer
+//  6. Masonry portfolio styling
+//  7. Search results page
+//  8. Media queries < 1150px
+//  9. Regular page collapsed layout
+//  10. Gallery page collapsed layout
+//  11. Media queries < 620px
+//  12. Media queries < 420px
+//  
+////////////////////////////////////////////////////////////////////
+
+@import "css-less/mixins.less"; // less stuff
+@import "css-less/reset.less"; // reset
+@import "css-less/typography.less"; // headings, links, lists, blockquote's , form, inputs ...
+@import "css-less/two-dim-slider.less"; // everything related to home page slider, except resizing
+@import "css-less/page-and-blog.less";
+
+
+////////////////////////////////////////////
+//
+// 1. Layout: Main wrappers and containers
+//
+////////////////////////////////////////////
+
+body {
+	background: @content-background;
+}
+html, body {
+	-webkit-font-smoothing: subpixel-antialiased;
+    height: 100%;
+    width: 100%;
+}
+#main-wrap {
+	height: 100%;
+	border-top: 3px solid @font-color;
+	.box-sizing();
+}
+#page {
+    min-height: 100%;
+    border-left: @sidebar-width-full solid @sidebar-background;
+	zoom: 1;
+	margin: 0 0 -@footer-max-height 0; // the bottom margin is the negative value of the footer's height
+}
+.main-header {
+	margin-left: -@sidebar-width-full;
+	position: relative;
+	width: @sidebar-width-full - 4;
+	padding: 0 2em;
+	float: left;
+	z-index: 10;
+}
+// semantics is boring
+.push {
+	height: @footer-max-height;
+	clear: both;
+}
+#primary {
+	padding: 1.5em 2em;
+}
+#secondary {
+	color: @sidebar-text-color;
+	float: left;
+}
+
+
+
+
+
+
+
+
+////////////////////////////////////////////
+//
+// 2. Mobile (select control) menu
+//
+////////////////////////////////////////////
+.menu {
+	margin: @menus-margin / 2 0 @menus-margin / 2 - 3 0;
+
+	font-weight: @menu-font-weight;
+	font-size: @menu-font-size;
+	line-height: @menu-line-height;
+
+	ul {
+		margin: 0;
+		list-style: none;
+	}
+	li {
+		margin: 0 0 4px;
+		list-style: none;
+	}
+	a {
+		text-decoration: none;
+		border-bottom-color: @sidebar-background;
+		
+		color: @menu-item-color;
+		.transition(none, 0);
+	}
+	a:hover {
+		background: none;
+		color: @menu-item-hover-color;
+		border-bottom-color: @menu-item-hover-color;
+	}
+	li.important-item a {
+		background: #afeef5;
+	}
+	// a:active {
+	// 	border-bottom-color: fadeout(@menu-item-hover-color, 50%);
+	// 	color: fadeout(@menu-item-color, 30%);
+	// }
+	li.current-menu-item > a {
+		color: @selected-menu-item-color;
+		
+		//color: #777;
+		font-weight: bold;
+	}
+}
+.menu-sep {
+	color: #DDD;
+	font-size: @menu-font-size;
+}
+.project-menu-sep {
+	margin-bottom: @menus-margin / 2;
+}
+
+#gallery-menu {
+	margin: .5em 0 0 0;
+	font-size: @projects-menu-font-size; 
+	line-height: @projects-menu-line-height;
+
+	a {
+		color: @projects-menu-font-color;
+		
+	}
+	
+	li {
+		&.current-album-menu-item {
+			a {
+				cursor: default;
+				color: #000;
+				&:hover {
+					border-color: transparent;
+				}
+			}
+		}
+	}
+}
+// collapsed menu
+a.menu-button {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	padding: 6px 9px 8px;
+	font-size: 13px;
+	line-height: 18px;
+	font-weight: bold;
+	float: right;
+	color: @text-color;
+	&:hover {
+		background: none;
+		border: 0;
+	}
+}
+.menu-close-button {
+	.menu-button-icon {
+		background-position: -170px -31px;
+	}
+}
+.menu-button-icon {
+	display: inline-block;
+	margin-top: 2px;
+	width: 14px;
+	height: 12px;
+	line-height: 12px;
+	vertical-align: text-top;
+	background: @sprite-url no-repeat;
+	background-position:   -170px -9px;
+	.transition(background-position, .3s);
+}
+
+.mobile-menu {
+	position: relative;
+	font-weight: bold;
+	width: 4em;
+	overflow: hidden;
+	margin: 0;
+	font-size: 16px;
+	line-height: 32px;
+	padding-left: .5em;
+
+	select {
+		max-width: 70px;
+		top: 0;
+		right: 0;
+		border: 0;
+		padding: 0;
+		font-size: 16px;
+		line-height: 32px;
+		margin: 0;
+		height: 32px !important;
+	}
+	.menu-icon {
+		display: block;
+		width: 16px;
+		height: 17px;
+		float: right;
+		margin-top: 6px;
+		background: @sprite-url no-repeat -170px -10px;
+	}
+	.customStyleSelectBox {
+		display: block;
+		cursor: pointer;
+	}
+	.customStyleSelectBoxInner {
+		display: block;
+		float: right;
+	}
+	.select-menu {
+		float: right;
+		cursor: pointer;
+	}
+	.customStyleSelectBox {
+		display: block !important;
+		float: none;
+	}
+}
+
+
+
+
+////////////////////////////////////////////
+//
+// 3. Logo, site description
+//
+////////////////////////////////////////////
+.logo {
+	margin: @default-logo-margin;
+	width: @default-logo-width;
+	letter-spacing: 0;
+	font-size: 1em;
+	a {
+		color: @selected-menu-item-color;
+		border: 0;
+		background: none;
+		display: block;
+		.transition(opacity, .3s);
+	}
+	a:hover {
+		opacity: 0.6;
+		background: none;
+	}
+	img {
+		max-width: 100%;
+		height: auto;
+		vertical-align: bottom;
+	}
+}
+.site-description {
+	color: @sidebar-text-color;
+	font-size: @site-description-font-size;
+	margin-bottom: @menus-margin / 2 - 2;
+}
+
+
+
+
+////////////////////////////////////////////
+//
+// 4. Widget
+//
+////////////////////////////////////////////
+.widget {
+	font-size: @widget-body-font-size;
+	line-height: @widget-body-line-height;
+
+	margin: @menus-margin / 2 0 @menus-margin / 2 0;
+	
+	.widget-title {
+		font-weight: bold;
+		color: @sidebar-text-color;
+		margin: 0 0 .5em;
+
+		font-size: @widget-title-font-size;
+		line-height: @widget-title-line-height;
+	}
+	
+	li, ul {
+
+		margin-left: 0;
+		list-style: none;
+	}
+
+	a {
+
+		//border: 0;
+	}
+	input {
+		padding: 0;
+	}
+}
+
+
+
+
+////////////////////////////////////////////
+//
+// 5. Footer
+//
+////////////////////////////////////////////
+.footer-copy {
+	height: @footer-max-height;
+	overflow: hidden;
+	width: 100%;
+	background: @sidebar-background;
+	p {
+		padding: 1.5 * @font-small-em-size 2 * @font-small-em-size;
+		max-width: 40 * @font-small-em-size;
+		margin: 0;
+		font-size: @font-small;
+		line-height: @font-small-line-height;
+		margin-left:  @sidebar-width-full * @font-small-em-size;
+		color: @footer-copy-text-color;
+	}
+	a {
+		color: @footer-copy-text-color;
+	}
+}
+
+
+
+
+////////////////////////////////////////////
+//
+// 6. Masonry portfolio styling
+//
+////////////////////////////////////////////
+.page-template-ds-gallery-masonry-template-php {
+	.hentry {
+		max-width: none ;
+	}
+	.albums-thumbnails {
+		width: auto;
+	}
+	.slider-data {
+		display: none;
+	}
+	
+	.two-dim-slider {
+		display: none;
+		left: 0;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		padding: @gallery-padding;
+		width: auto;
+		height: auto;
+		overflow: hidden;
+		background: @sidebar-background;
+		z-index: 45;
+	}
+}
+.page-template-full-width-page-template-php {
+	.hentry {
+		max-width: none ;
+	}
+}
+.albums-thumbnails {
+	width: @content-large-image-max-width;
+
+	img {
+		.transition(all, .2s, ease-in-out);
+		display: block;
+		width: 304px;
+	}
+	.image-background {
+		background: #222;
+		overflow: hidden;
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	.project-title {
+		font-weight: bold;
+		width: 100%;
+		display: block;
+		text-align: left;
+		margin: .8em 0 .5em;
+	}
+	a.project-thumb {
+		display: block;
+		position: relative;
+		float: left;
+		width: 320px;
+	    border: 0;
+	    margin-bottom: 8px;
+		.transition(none, 0);
+		&:hover {
+			background: none;
+			border: 0;
+		}
+	}
+	.project-thumb-inside {
+		padding: 7px;
+	    border: 1px solid transparent;
+	    .transition(border, .3s);
+	    &:hover {
+			border-color: #DDD;
+			img {
+				opacity: .7;
+			}
+			.project-title {
+				color: @link-hover-color;
+			}
+		}
+	}
+	.project-description {
+		font-size: @font-small;
+	}
+}
+
+
+
+
+
+////////////////////////////////////////////
+//
+// 7. Search results page
+//
+////////////////////////////////////////////
+
+.search-results {
+	h1.entry-title {
+		font-size: 1.25em;
+		margin: 1.1em 0 0.5em;
+	}
+	.hentry {
+		margin-bottom: 3em;
+	}
+	.page-header {
+		margin-bottom: 3em;
+	}
+	.page-title {
+		font-size: 2em;
+	}
+}
+
+
+
+
+
+////////////////////////////////////////////
+//
+// 8. Media queries < 1150px
+//
+////////////////////////////////////////////
+
+@media only screen and (max-width: 1150px) {
+	.main-header {
+		width: @sidebar-width-full - 6;
+		padding: 0 1.5em;
+		margin-left: -@sidebar-width-full + 3;
+	}
+	.footer-copy p {
+		margin-left: (@sidebar-width-full - 3) * @font-small-em-size;
+		padding-left: 1.5 * @font-small-em-size;
+		padding-right: 1.5 * @font-small-em-size;
+	}
+	#primary {
+		padding: 1.5em 1.5em;
+	}
+	#page {
+	  	border-left: @sidebar-width-full - 3 solid @sidebar-background;
+	}
+	.ds-gallery-page .two-dim-slider {
+		left: @sidebar-width-full - 3;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+	p {
+		img {
+			max-width: 100%;
+		}
+	}
+}
+
+
+
+////////////////////////////////////////////
+//
+// 9. Regular page collapsed layout
+//
+////////////////////////////////////////////
+.page-template-ds-gallery-masonry-template-php.collapsed-layout  {
+	#primary {
+		padding: 1em 1em 1.5em;
+	}
+	.albums-thumbnails {
+		margin: 0 auto;
+	}
+}
+.collapsed-layout {
+	#main-wrap {
+		background: @sidebar-background;
+		padding: 0 1em;
+		width: auto !important;
+	}
+	p {
+		img {
+			max-width: 100%;
+		}
+	}
+	.logo {
+		margin: 0;
+		width: @collapsed-layout-logo-width;
+		padding: 0;
+		a {
+			font-size: 19px;
+			padding: @collapsed-layout-logo-padding;
+		}
+	}
+	
+	.main-header {
+		width: 100%;
+		position: relative;
+		padding: 0;
+		margin: 0;
+		
+		background: @sidebar-background;
+		border-bottom: 2px solid @text-color;
+
+		.menus-container {
+			clear: both;
+			float: right;
+			margin-right: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+			background: #FFF;
+			padding: 8px 0;
+			overflow: hidden;
+		}
+		.menu {
+			margin: 0 0 8px;
+			li {
+				width: auto;
+				margin: 0;
+				//float: left;
+				//margin-right: 8px;
+			}
+			a {
+				width: 100%;
+				display: block;
+				padding: 4px 16px 2px;
+				&:hover {
+					border-color: transparent;
+					background-color: rgba(0,0,0,.1);
+				}
+			}
+		}
+		.menu-sep {
+			display: none;
+		}
+
+		.top-logo-group {
+			float: left;
+			display: block;
+			overflow: hidden;
+		}
+		
+		.site-description {
+			display: none;
+			
+		}
+		.menu-button {
+			margin: @collapsed-layout-menu-button-margin;
+			float: right;
+		}
+	}
+	.menu-sep {
+		display: none;
+	}
+	
+	#main {
+		width: 100%;
+		clear: both;
+	}
+	#primary {
+		padding: 1em 10% 1.5em;
+		background: @content-background;
+	}
+	#page {
+		min-height: 0;
+		height: auto;
+		margin: 0;
+		border: 0;
+	}
+	.footer-copy {
+		height: auto;
+		overflow: visible;
+	}
+	.push {
+		display: none;
+	}
+	.footer-copy {
+		background: none;
+		border-top: 1px solid @text-color;
+		p {
+			width: 80%;
+			padding-left: 10%;
+			padding-right: 10%;
+			max-width: none;
+			margin: 0;
+		}
+	}
+	#secondary {
+		border-top: 2px solid @text-color;
+		float: none;
+		width: 100%;
+		padding: 1.5em 0;
+		background: @sidebar-background;
+		.widget {
+			padding: 0 10%;
+			margin: 0 0 1.5em 0;
+		}
+	}
+	#main {
+	  	border-left: none;
+	}
+	.hentry, #comments, #nav-below {
+		max-width: none;		
+	}
+	
+	.site-content {
+		margin: 0;
+	}
+	#content {
+		margin: 0;
+	}
+	.video-overlay {
+		.video-container {
+			margin: .5em;
+		}
+	}
+}
+
+
+
+////////////////////////////////////////////
+//
+// 10. Gallery page collapsed layout
+//
+////////////////////////////////////////////
+//
+.collapsed-gallery-page {
+	#main-wrap {
+		border-top: 0;
+	}
+	#page {
+		border: 0;
+		margin: 0;
+	}
+	#main {
+		border: 0;
+	}
+	.logo {
+		margin: 0;
+		width: @collapsed-gallery-logo-width;
+		a {
+			margin: @collapsed-gallery-logo-padding;
+			font-size: 19px;
+		}
+	}
+	#gallery-menu {
+		display: none;
+	}
+	.two-dim-slider {
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		.image-nav {
+			bottom: .5em;
+			left: .5em;
+		}
+		.slider-album-indicator {
+			bottom: 8px + @gallery-padding;
+		}
+	}
+	.album-info-block {
+		right: 0;
+		bottom: 0;
+		top: auto;
+		left: 0;
+
+		height: auto;
+		max-height: 100%;
+		overflow-y: auto;
+
+		.info-container {
+			width: auto;
+			height: auto;
+			padding: 1em 1em 2em;
+		}
+		&::-webkit-scrollbar {
+			background:fadeout(@menu-item-color, 90%);
+			width:8px;
+			height:8px;
+			//border-right: 2px solid transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color:fadeout(@menu-item-color, 80%);
+		}
+		&::-webkit-scrollbar-thumb:hover {
+			background-color:fadeout(@menu-item-color, 70%);
+		}
+		
+		width: auto;
+		max-width: none;
+	} 
+	.main-header {
+		width: auto;
+		height: auto;
+		overflow: hidden;
+		position: relative;
+
+
+		padding: @collapsed-gallery-menu-area-padding;
+		margin: 0;
+		left: @gallery-padding;
+		top: @gallery-padding * 2;
+
+		.menus-container {
+			margin: 0;
+			overflow: hidden;
+			clear: both;
+		}
+		.menu {
+			margin: 0 0 16px;
+			li {
+				width: auto;
+				margin: 0;
+				//float: left;
+				//margin-right: 8px;
+			}
+			a {
+				width: 100%;
+				display: block;
+				padding: 4px 16px 2px 0;
+				&:hover {
+					border-color: transparent;
+					background-color: rgba(0,0,0,.1);
+				}
+			}
+		}
+		.menu-sep {
+			display: none;
+		}
+
+
+		#main-menu {
+			margin-top: @menus-margin - 8;
+		}
+
+		.menu-button {
+			margin: @collapsed-gallery-menu-button-margin;
+		}
+		.primary-menu {
+			//display: none;
+		}
+		.social-menu {
+			//display: none;
+		}
+		.top-logo-group {
+			float: left;
+		}
+		.site-description {
+			display: none;
+		}
+	}
+}
+
+
+
+
+
+////////////////////////////////////////////
+//
+// 11. MQ < 620px
+//
+////////////////////////////////////////////
+
+@media only screen and (max-width: 620px) {
+	// .albums-thumbnails {
+	// 	a.project-thumb {
+	// 		width: 100%;
+	// 		margin-right: 0;
+	// 		margin-left: 0;
+	// 	}
+	// }
+	.album-info-block {
+		font-size: 90%;
+	}
+}
+
+
+
+
+
+////////////////////////////////////////////
+//
+// 12. MQ < 500px
+//
+////////////////////////////////////////////
+
+@media only screen and (max-width: 500px) {
+	
+	.album-info-block {
+		font-size: 85%;
+	}
+	.collapsed-layout { 
+		#primary,
+		#secondary .widget,
+		.footer-copy p {
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.footer-copy {
+			background: none;
+			border-top: 1px solid @text-color;
+		}
+		.video-overlay {
+			.video-container {
+				margin: 0;
+			}
+		}
+		.slider-album-indicator {
+			max-width: 80%;
+		}
+	}
+	.ds-gallery-page {
+		.main-header {
+			top: @gallery-padding;
+			left: 0;
+		}
+		.arrow-nav {
+			bottom: 48px;
+		}
+		.slider-album-indicator {
+			bottom: 8px;
+		}
+		.two-dim-slider {
+			padding: 0;
+			.arrow-right {
+				right: 0px;
+			}
+			.arrow-left {
+				left: 0px;
+			}
+			.slider-album-indicator {
+				bottom: 8px;
+				right: 0;
+			}
+		}
+		.album-info-block .info-container {
+			padding-bottom: 1em;
+		}
+	}
+	
+
+
+
+}
+
+

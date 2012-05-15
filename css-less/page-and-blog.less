@@ -1,0 +1,197 @@
+////////////////////////////////////////////////////////////////////
+//
+// Touchfolio Page Content Styling
+//
+// 	1. Preloader
+// 	2. Video-related things
+// 	3. Wrappers, image containers e.t.c
+// 	4. Album name + count (1 of n)
+// 	5. Collapsed slider styles 
+//  6. Album info block (share, close project button)
+//  
+////////////////////////////////////////////////////////////////////
+
+.entry-title {
+	margin: 0;
+	a {
+		color: @title-color;
+		&:hover {
+			
+			background: none;
+			color: @link-color;
+		}
+	}
+}
+.entry-header {
+	margin: 0 0 1em;
+}
+.entry-meta {
+	margin-top: 0.25em;
+	font-size: @font-small;
+	font-weight: normal;
+	color: @secondary-text-color;
+	.comments-link,
+	.entry-date,
+	.byline {
+		white-space: nowrap;
+	}
+}
+
+.more-link {
+	margin-top: 1em;
+	display: inline-block;
+	font-weight: normal;
+	color: @text-color;
+	overflow: hidden;
+	line-height: 1.3em;
+}
+
+
+
+.logged-in-as {
+	font-size: @font-small;
+	margin-bottom: @font-small-em-size;
+}
+
+.entry-content,
+.entry-summary {
+	margin: 0;
+}
+.page-links {
+	margin: 0 0 1em;
+}
+
+.hentry {
+	max-width: @content-max-width;
+	margin: 0 0 3em;
+}
+#nav-below {
+	max-width: @content-max-width;
+	margin: 0 0 2em;
+}
+#comments {
+	max-width: @content-max-width;
+	margin: 0;
+}
+
+#commentform {
+	#author,
+	#email,
+	#url {
+		width: 100%;
+		max-width: @content-max-width / 1.6;
+		.box-sizing();
+	}
+	#comment {
+		min-height: 10em;
+		max-width: 100%;
+		width: 100%;
+	    .box-sizing();
+	}
+}
+.commentlist {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	.comment-content {
+		padding-left: 2em;
+	}
+	.children {
+		list-style: none;
+		margin: 0 0 0.5em 2em;
+	}
+	.comment {
+		margin: 0 0 1em;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+		padding: 1em 0;
+		//background: lighten(#deded5, 5%);
+		.avatar {
+			float: left;
+			width: 1.5em;
+			height: auto;
+			margin: 0 0.5em 0 0;
+		}
+		time {
+			margin: 0 0.3em;
+		}
+		cite {
+			font-style: normal;
+			font-weight: bold;
+			
+		}
+		footer {
+			margin-bottom: 1em;
+		}
+		.commentmetadata {
+			display: inline;
+			a {
+				color: @secondary-text-color;
+			}
+		}
+		.commentmetadata,
+		.reply {
+			font-size: @font-small;
+			color: @secondary-text-color;
+		}
+		.reply  {
+			padding-left: @font-small-em-size * 2;
+		}
+		&.author-comment {
+			cite {
+				background: #FFF9b3;
+				padding: 0 2px;
+			}
+			//background: #EEE;
+		}
+		&:hover {
+			.reply {
+				
+			}
+		}
+	}
+
+}
+#respond {
+	padding: .5em 2em;
+	background: darken(@content-background, 2%);
+	.box-sizing();
+	form {
+		margin-top: 1.5em;
+	}
+}
+
+// Alignment
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: .5em;
+	margin-top: .1em;
+}
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: .5em;
+	margin-top: .1em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.aligncenter .wp-caption-text {
+	text-align: center;
+}
+
+// Navigation
+#nav-below {
+	padding-bottom: 1em;
+	display: block;
+}
+.nav-previous {
+	float: left;
+}
+.nav-next {
+	float: right;
+}
