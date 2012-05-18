@@ -7,7 +7,7 @@
  */
 
 
-define( 'USE_LESS_CSS', true );
+define( 'USE_LESS_CSS', false );
 define( 'DS_THEME_PATH', get_template_directory_uri() );
 define( 'DS_THEME_DIR', TEMPLATEPATH );
 
@@ -89,20 +89,20 @@ require_once (ADMIN_PATH . 'admin-functions.php');
 require_once (ADMIN_PATH . 'medialibrary-uploader.php'); 
 
 
-
+global $data;
+function get_ds_option($opt_name) {
+	global $data;
+	if(isset($data[$opt_name]) && $data[$opt_name]) {
+		return $data[$opt_name];
+	} else {
+		return false;
+	}
+}
 
 // Setup less-css plugin
 if(USE_LESS_CSS) {
 	require DS_THEME_DIR . '/inc/plugins/wp-less/bootstrap-for-theme.php';
-	global $data;
-	function get_ds_option($opt_name) {
-		global $data;
-		if(isset($data[$opt_name]) && $data[$opt_name]) {
-			return $data[$opt_name];
-		} else {
-			return false;
-		}
-	}
+	
 	$WPLessPlugin->dispatch( );
 
 	// Admin gallery management
