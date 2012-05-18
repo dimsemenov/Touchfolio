@@ -7,7 +7,7 @@
  */
 
 
-define( 'USE_LESS_CSS', false );
+define( 'USE_LESS_CSS', true );
 define( 'DS_THEME_PATH', get_template_directory_uri() );
 define( 'DS_THEME_DIR', TEMPLATEPATH );
 
