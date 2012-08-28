@@ -104,12 +104,10 @@ if(USE_LESS_CSS) {
 	require DS_THEME_DIR . '/inc/plugins/wp-less/bootstrap-for-theme.php';
 	
 	$WPLessPlugin->dispatch( );
-
-	// Admin gallery management
-	include_once(get_template_directory() . '/inc/gallery-manage.php');
 }
 
-
+// Admin gallery management
+include_once(get_template_directory() . '/inc/gallery-manage.php');
 
 
 
