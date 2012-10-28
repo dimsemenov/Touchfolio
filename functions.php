@@ -192,7 +192,7 @@ function dsframework_scripts() {
 		if(USE_LESS_CSS) {
 			$style_name = get_ds_option('alt_stylesheet');
 			if(!$style_name) {
-				$style_name = 'style-touchfolio-default';
+				$style_name = 'style-touchfolio-default.less';
 			}
 			wp_enqueue_style('style', get_bloginfo('template_directory').'/'. $style_name, array(), '', 'screen, projection');
 		} else {
