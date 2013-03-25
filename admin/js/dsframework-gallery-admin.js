@@ -95,6 +95,7 @@ var dsframework_global_vars = {};
 					imageListItems.each(function() {
 						item = $(this);
 						addBtn = item.find('.dsframework-thickbox-add-image-button');
+						
 						if(addBtn.length) {
 							item.addClass('button-cloned');
 							item.prepend(addBtn.clone(true));
