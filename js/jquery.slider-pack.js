@@ -410,7 +410,7 @@
 			self._nextImageArr = self.sliderRoot.find('.arrow-right').click(function(e) {
 				e.preventDefault();
 				self.next();
-			});&mdash;
+			});
 		}
 		self._primaryMenu = self._headerSideMenu.find('.primary-menu > .current-menu-item');
 		
