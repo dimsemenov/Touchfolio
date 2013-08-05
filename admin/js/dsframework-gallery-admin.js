@@ -38,14 +38,32 @@ var dsframework_global_vars = {};
 			});
 
 			$(".sortable-admin-gallery li").live('click', function() {
-				  $.fn.colorbox({inline:true, 
-								href:$(this).find('.gallery-item-hidden-opts'),
-								transition: 'none',
-								open:true,
-								opacity: 0.4});
+				  $.magnificPopup.open({
+				  	items: {
+				  		type: 'inline',
+				  		src: $(this).find('.gallery-item-hidden-opts')
+				  	},
+				  	fixedContentPos: false,
+					fixedBgPos: true,
+
+					overflowY: 'auto',
+
+					closeBtnInside: true,
+					preloader: false,
+					
+					midClick: true
+
+				  });
+
+
+				  // {inline:true, 
+						// 		href:$(this).find('.gallery-item-hidden-opts'),
+						// 		transition: 'none',
+						// 		open:true,
+						// 		opacity: 0.4});
 
 				  var props = $(this).find('.gallery-item-hidden-opts');
-				  $('#cboxLoadedContent .dsframework-g-item-alt-attr').focus();
+				  //$('#cboxLoadedContent .dsframework-g-item-alt-attr').focus();
 				  return false;
 			});
 		} else {

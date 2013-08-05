@@ -72,7 +72,7 @@ add_action('admin_head', 'optionsframework_admin_message');
 		foreach ($of_options as $value) {
 			
 			if ($value['type'] == 'heading') {
-				$hooks[] = ereg_replace("[^A-Za-z0-9]", "", strtolower($value['name']) );
+				$hooks[] = preg_replace("/[^A-Za-z0-9]/", "", strtolower($value['name']) );
 			}
 			
 		}
