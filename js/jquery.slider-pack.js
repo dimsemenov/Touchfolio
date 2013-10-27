@@ -17,6 +17,20 @@
 			isMac = (navigator.appVersion.indexOf("Mac")!=-1);
 
 
+		var tempStyle = document.createElement('div').style,
+			vendors = ['webkit','Moz','ms','O'],
+			vendor = '',
+			tempV;
+
+		for (i = 0; i < vendors.length; i++ ) {
+			tempV = vendors[i];
+			if (!vendor && (tempV + 'Transform') in tempStyle ) {
+				vendor = tempV;
+			}
+			tempV = tempV.toLowerCase();
+		}
+
+
 		self._isChrome = isChrome;
 		self._wpVars = tdSliderVars;
 		self.sliderRoot = $(element);
@@ -248,10 +262,9 @@
 		}
 
 
-
 		if(self._useCSS3Transitions) {
 
-			if(isMozilla) {
+			if(isMozilla && vendor === 'moz') {
 				self.browserSufix = '-moz-';
 				self._yProp = self._xProp = '-moz-transform';
 				self.transitionEndEvent = 'transitionend.tds';
@@ -703,8 +716,7 @@
 				blockLink,
 				newPos,
 				album;
-				
-
+			
 			if(self._isDragging || self._isAnimating) {
 				return false;
 			}
@@ -722,7 +734,6 @@
 
 			if(axis === 'x') {
 				if(type === 'next') {
-
 					if(!self._loopItems && self.currItemId + 1 >= self.currAlbumNumItems) {
 						self._doBackAndForthAnim('right');
 						return false;
@@ -737,6 +748,8 @@
 					self._rightBlock = self._leftBlock;
 					self._leftBlock = self._centerBlock;
 					self._centerBlock = blockLink;
+
+
 
 					newPos = self._tempMainBlockId * self.sliderWidth;
 					self._currAnimSpeed = speed;
@@ -1338,6 +1351,7 @@
 			} else {
 				moveProp = self._yProp;
 			}
+
 			
 			function animationComplete() {
 					var item,
@@ -1455,7 +1469,6 @@
 				
 				self._dragContainer.animate(animObj, self._currAnimSpeed, /*'easeOutQuart'*/ inOutEasing ? self.settings.easeInOutEasing : 'easeOutSine');
 			} else {
-
 				animObj[(self.browserSufix + 'transition-duration')] = self._currAnimSpeed+'ms';
 				animObj[(self.browserSufix + 'transition-property')] = (self.browserSufix + 'transform');
 				//easing generator http://matthewlein.com/ceaser/
@@ -1507,7 +1520,6 @@
 		// },
 		_setPosition:function(pos, axis) {
 			var self = this;
-
 			
 			if(self._useCSS3Transitions) {
 				if(axis === 'y') {
@@ -1762,8 +1774,6 @@
 		},
 		_updateItemControls:function() {
 			var self = this;
-			// console.log('updating...');
-			// console.time('arr');
 			if(self._arrowControlsEnabled) {
 
 				// function showTooltip(isNext) {
