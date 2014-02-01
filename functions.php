@@ -289,4 +289,147 @@ function dsframework_add_admin_scripts( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'dsframework_add_admin_scripts', 10, 1 );
 
+/**
+ * Retrieve list of galleryCategory objects.
+ *
+ * If you change the type to 'link' in the arguments, then the link categories
+ * will be returned instead. Also all categories will be updated to be backwards
+ * compatible with pre-2.3 plugins and themes.
+ *
+ * @since 2.1.0
+ * @see get_terms() Type of arguments that can be changed.
+ * @link http://codex.wordpress.org/Function_Reference/get_categories
+ *
+ * @param string|array $args Optional. Change the defaults retrieving categories.
+ * @return array List of categories.
+ */
+function get_gallery_categories( $args = '' ) {
+	$defaults = array( 'taxonomy' => 'ds-gallery-category' );
+	$args = wp_parse_args( $args, $defaults );
+
+	$taxonomy = $args['taxonomy'];
+	/**
+	 * Filter the taxonomy used to retrieve terms when calling get_gallery_categories().
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $taxonomy Taxonomy to retrieve terms from.
+	 * @param array  $args     An array of arguments. @see get_terms()
+	 */
+	$taxonomy = apply_filters( 'get_gallery_categories_taxonomy', $taxonomy, $args );
+
+	// Back compat
+	if ( isset($args['type']) && 'link' == $args['type'] ) {
+		_deprecated_argument( __FUNCTION__, '3.0', '' );
+		$taxonomy = $args['taxonomy'] = 'link_gallery_category';
+	}
+
+	$categories = (array) get_terms( $taxonomy, $args );
+
+	foreach ( array_keys( $categories ) as $k )
+		_make_cat_compat( $categories[$k] );
+
+	return $categories;
+}
+
+/**
+ * Retrieves galleryCategory data given a galleryCategory ID or galleryCategory object.
+ *
+ * If you pass the $galleryCategory parameter an object, which is assumed to be the
+ * galleryCategory row object retrieved the database. It will cache the galleryCategory data.
+ *
+ * If you pass $galleryCategory an integer of the galleryCategory ID, then that galleryCategory will
+ * be retrieved from the database, if it isn't already cached, and pass it back.
+ *
+ * If you look at get_term(), then both types will be passed through several
+ * filters and finally sanitized based on the $filter parameter value.
+ *
+ * The galleryCategory will converted to maintain backwards compatibility.
+ *
+ * @since 1.5.1
+ * @uses get_term() Used to get the galleryCategory data from the taxonomy.
+ *
+ * @param int|object $galleryCategory Category ID or Category row object
+ * @param string $output Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
+ * @param string $filter Optional. Default is raw or no WordPress defined filter will applied.
+ * @return mixed Category data in type defined by $output parameter.
+ */
+function get_gallery_category( $galleryCategory, $output = OBJECT, $filter = 'raw' ) {
+	$galleryCategory = get_term( $galleryCategory, 'ds-gallery-category', $output, $filter );
+	if ( is_wp_error( $galleryCategory ) )
+		return $galleryCategory;
+
+	_make_cat_compat( $galleryCategory );
+
+	return $galleryCategory;
+}
+
+/**
+ * Retrieve galleryCategory object by galleryCategory slug.
+ *
+ * @since 2.3.0
+ *
+ * @param string $slug The galleryCategory slug.
+ * @return object GalleryCategory data object
+ */
+function get_gallery_category_by_slug( $slug  ) {
+	$category = get_term_by( 'slug', $slug, 'ds-gallery-category' );
+	if ( $category )
+		_make_cat_compat( $category );
+
+	return $category;
+}
+
+/**
+ * Retrieve galleryCategory link URL.
+ *
+ * @since 1.0.0
+ * @see get_term_link()
+ *
+ * @param int|object $galleryCategory GalleryCategory ID or object.
+ * @return string Link on success, empty string if galleryCategory does not exist.
+ */
+function get_gallery_category_link( $galleryCategory ) {
+	if ( ! is_object( $galleryCategory ) )
+		$galleryCategory = (int) $galleryCategory;
+
+	$galleryCategory = get_term_link( $galleryCategory, 'ds-gallery-category' );
+
+	if ( is_wp_error( $galleryCategory ) )
+		return '';
+
+	return $galleryCategory;
+}
+
+/**
+ * Retrieves post in subcategory of galleryCategory object.
+ *
+ * @uses WP_Query() Used to get the post data from the galleryCategory.
+ *
+ * @param object $galleryCategory Category row object
+ * @param boolean $includeChildren true for include children
+ * @return array List of post.
+ */
+function post_in_gallery_category( $galleryCategory, $includeChildren = false  ) {
+	if(!isset($galleryCategory)) return array();
+
+	$tax_query = array(               
+    	'relation' => 'AND',                  
+		array(
+			'taxonomy' => 'ds-gallery-category',     
+			'field' => 'slug',                
+			'terms' => $galleryCategory->slug,
+			'include_children' => $includeChildren,         
+			'operator' => 'IN'                 
+		)
+    );
+	$postLoop = new WP_Query( array( 
+		'post_type' => 'ds-gallery', 
+		'posts_per_page' => -1,
+		'tax_query' => $tax_query
+	));
+
+	return $postLoop;
+}
+
 ?>
