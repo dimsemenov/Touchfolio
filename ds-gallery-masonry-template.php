@@ -41,6 +41,7 @@
 		<?php endwhile; ?>
 		</section>
 		<?php wp_reset_postdata(); ?>
+		<?php get_template_part( 'content', 'page-masonry' ); ?>
 	</div>
 </div>
 <?php get_sidebar(); ?>

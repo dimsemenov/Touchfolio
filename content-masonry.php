@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying gallery thumbnail in ds-gallery-masonry-template.php
+ * The template used for displaying gallery thumbnail in ds-gallery-masonry-template.php and in ds-gallery-categories-navigation-template.php
  *
  * @package dsframework
  * @since dsframework 1.0
