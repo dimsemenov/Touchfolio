@@ -19,6 +19,7 @@
 
 		$gallery_category_slug="";
 		if(isset($_GET) && isset($_GET['category'])) $gallery_category_slug=$_GET['category'];
+		if($gallery_category_slug=="") $gallery_category_slug = $post_meta['dsframework-root-gallery-category'][0];
 
 		if($gallery_category_slug!=""){
 			$gallery_category=get_gallery_category_by_slug($gallery_category_slug);
