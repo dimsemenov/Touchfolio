@@ -43,7 +43,7 @@
 
 
 		foreach ( $categories as $subcategory ) {
-			$subcategory->navigation_link=add_query_arg( array('category' => $subcategory->slug), get_permalink());
+			$subcategory->navigation_link=add_query_arg( array('category' => $subcategory->slug), $permalink);
 			$GLOBALS['category']=$subcategory;
 
 			if($subcategory->parent==0 || ($gallery_category_slug!="" && $subcategory->parent==$gallery_category->term_id) || count($visible_gallery_categories)>0){
