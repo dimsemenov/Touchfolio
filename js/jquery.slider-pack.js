@@ -2010,9 +2010,12 @@
 			if(currItem) {
 				var currBlock = currQueueItem.block,
 					currImg = currBlock.find('img').eq(0),
+					currImgDesc = currBlock.find('#img-desc').eq(0),
+
 					path = currItem.find('a').attr('href'),
 					bWidth = currItem.attr('data-img-width'),
-					bHeight = currItem.attr('data-img-height');
+					bHeight = currItem.attr('data-img-height'),
+					desc = currItem.attr('data-img-desc');
 				
 
 				if(currImg.length <= 0) {
@@ -2022,6 +2025,13 @@
 				} else {
 					hasImage = true;
 					currBlockPath = currImg.attr('src');
+				}
+
+				if(currImgDesc.length <= 0) {
+					hasDesc = false;
+					currImgDesc = $('<div id="img-desc" class="img-desc-block text-block"><div class="info-container"><div class="img-content">'+desc+'</div></div></div>');
+				} else {
+					hasDesc = true;
 				}
 
 				//.data('img-scale', imgScale);
@@ -2058,7 +2068,16 @@
 									.bind('error.tds', self._onLoadingComplete({type:'error', loadDataItem:currQueueItem, block:currBlock, img:currImg })).attr({'src': path, 'alt':currItem.find('a').text()});
 							
 
-					if(!hasImage) {
+					if (!hasDesc) {
+						currImgDesc.appendTo(currBlock.find('.block-inside'));
+					}
+
+					if (desc.length > 0) {
+						currImgDesc.show();
+					}else{
+						currImgDesc.hide();
+					}
+					if (!hasImage) {
 						currImg.appendTo(currBlock.find('.block-inside'));
 					}
 					self._resizeImage(currImg, bWidth, bHeight);

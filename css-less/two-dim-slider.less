@@ -510,6 +510,38 @@
 	}
 }
 
+.img-desc-block {
+	-webkit-text-size-adjust:none;
+	position: absolute;
+	overflow: auto;
+	z-index: 50;
+
+	padding: 0;
+
+	background: @sidebar-background;
+	
+	left: 0;
+	top: 0px + @gallery-padding;
+	max-width: 65%;
+	
+	color: @sidebar-text-color;
+
+	.info-container {
+		width: auto;
+		height: auto;
+		padding: 1.0em;
+	}
+	h3.album-title {
+		margin-top: 0;
+	}
+	.img-content {
+		font-size: @font-small;
+		line-height: @font-small-line-height;
+		margin: 0;
+		max-height: 300px;
+		overflow: auto;
+	}
+}
 
 
 
