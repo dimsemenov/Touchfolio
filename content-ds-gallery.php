@@ -136,11 +136,16 @@
 				} else {
 					$img_scale = '';
 				}
+
+				$desc = get_post( $attachment_id_item )->post_content;
+
+
 				
 				if(!$alt_attr) 
 					$alt_attr = $image_urls[$j];
 				
-				$album_data .= "\t\t<li class=\"two-dim-item\"{$video_data}{$img_scale} data-img-width=\"{$image_widths[$j]}\" data-img-height=\"{$image_heights[$j]}\"><a href=\"{$image_urls[$j]}\">{$alt_attr}</a>";
+				$album_data .= "\t\t<li class=\"two-dim-item\"{$video_data}{$img_scale} data-img-desc=\"{$desc}\" data-img-width=\"{$image_widths[$j]}\" data-img-height=\"{$image_heights[$j]}\">";
+				$album_data .= "<a href=\"{$image_urls[$j]}\">{$alt_attr}</a>";
 
 				$album_data .=  "</li>\n";
 				$j++;
