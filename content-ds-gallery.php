@@ -137,8 +137,8 @@
 					$img_scale = '';
 				}
 
-				$desc = get_post( $attachment_id_item )->post_content;
-				$title = get_post( $attachment_id_item )->post_title;
+				$desc = get_ds_option('show_image_desc')==1 ? get_post( $attachment_id_item )->post_content : null;
+				$title = get_ds_option('show_image_title')==1 ? get_post( $attachment_id_item )->post_title : null;
 
 				
 				if(!$alt_attr) 
