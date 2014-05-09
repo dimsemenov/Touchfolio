@@ -137,14 +137,14 @@
 					$img_scale = '';
 				}
 
-				$desc = get_post( $attachment_id_item )->post_content;
-
+				$desc = get_ds_option('show_image_desc')==1 ? get_post( $attachment_id_item )->post_content : null;
+				$title = get_ds_option('show_image_title')==1 ? get_post( $attachment_id_item )->post_title : null;
 
 				
 				if(!$alt_attr) 
 					$alt_attr = $image_urls[$j];
 				
-				$album_data .= "\t\t<li class=\"two-dim-item\"{$video_data}{$img_scale} data-img-desc=\"{$desc}\" data-img-width=\"{$image_widths[$j]}\" data-img-height=\"{$image_heights[$j]}\">";
+				$album_data .= "\t\t<li class=\"two-dim-item\"{$video_data}{$img_scale} data-img-title=\"{$title}\" data-img-desc=\"{$desc}\" data-img-width=\"{$image_widths[$j]}\" data-img-height=\"{$image_heights[$j]}\">";
 				$album_data .= "<a href=\"{$image_urls[$j]}\">{$alt_attr}</a>";
 
 				$album_data .=  "</li>\n";
