@@ -37,10 +37,32 @@
 		echo $ds_gcode;
 	}
 	?>
+
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
 <?php wp_head(); ?>
+
+	<style type="text/css">
+	<?php 
+	if(get_ds_option('justify_content')==1){
+	?>
+		.entry-content {
+			text-align: justify;
+		}
+	<?php 
+	}
+	
+	if(get_ds_option('menu_indented')==1){
+	?>
+		.menu .sub-menu {
+			margin-left: 12px;
+		}
+	<?php 
+	}
+	?>
+	</style>
 </head>
 <body <?php body_class(); ?> style="">
 <div id="main-wrap">

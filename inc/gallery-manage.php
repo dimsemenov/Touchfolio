@@ -168,9 +168,10 @@ if( !class_exists( 'dsframework_gallery' ) )
 				'hierarchical' => false,
 				'menu_position' => 5,
 				'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
-				'menu_icon' => get_stylesheet_directory_uri() . '/img/gallery-menu-icon.png'
+				'menu_icon' => 'dashicons-images-alt'
 			  ); 
 			  
+			
 			register_post_type( 'ds-gallery' , $args);
 			flush_rewrite_rules();
 		}
