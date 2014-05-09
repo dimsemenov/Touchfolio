@@ -174,7 +174,17 @@ $of_options[] = array( "name" => __("Auto-open project description", 'dsframewor
 					"std" => "1",
 					"type" => "checkbox");
 
+$of_options[] = array( "name" => __("Justify content", 'dsframework'),
+					"desc" => __("Justify page content."),
+					"id" => "justify_content",
+					"std" => "1",
+					"type" => "checkbox");
 
+$of_options[] = array( "name" => __("Menu indented", 'dsframework'),
+					"desc" => __("The submenu entries are indented."),
+					"id" => "menu_indented",
+					"std" => "1",
+					"type" => "checkbox");
 					
 	}
 }
