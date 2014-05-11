@@ -353,7 +353,25 @@
 
 		self._albumInfoBlock = $('<div class="album-info-block text-block"><div class="album-info-text"></div></div>').appendTo('body');
 		
+
+		
+
+		// Add follow cursor
+		// self._cursorAdded = false;
+		// self._followCursor = $('<div class="mouse-follow-cursor"></div>');
+		// self._enableFollowCursor(self._wpVars.holdAndDrag);
+		
+                self.init();
+        }/* constructor end */
+
+
+	TwoDimSlider.prototype = {
+
+            init: function () {
+
+                var self = this;
 		var infoBlockHideTimeout;
+
 		self._albumIndicator.bind('click', function() {
 			self._toggleAlbumInfo();
 		});
@@ -387,193 +405,178 @@
 			return;
 		}
 
-		
 
-		// Add follow cursor
-		// self._cursorAdded = false;
-		// self._followCursor = $('<div class="mouse-follow-cursor"></div>');
-		// self._enableFollowCursor(self._wpVars.holdAndDrag);
-		
+                var startAlbum = 0;
+                var hash = window.location.hash;
 
+                if(hash) {
+                    startAlbum = self._getAlbumIdFromHash(hash);
+                }	
 
+                self.currAlbum = self.albumsArr[startAlbum];
+                self.currAlbumId = startAlbum;
+                self.numAlbums = self.albumsArr.length;
 
-
-
-
-
-
-
-		var startAlbum = 0;
-		var hash = window.location.hash;
-		if(hash) {
-			hash = hash.replace(/^#/, ''); 
-			startAlbum = self.getAlbumIdByIdAtt(hash);
-		}	
-		self.currAlbum = self.albumsArr[startAlbum];
-		self.currAlbumId = startAlbum;
-		self.numAlbums = self.albumsArr.length;
-
-
-		if( self._arrowControlsEnabled ) {
-			//self._arrowNav = self.sliderRoot.find('.arrow-nav');
-			self._prevImageArr = self.sliderRoot.find('.arrow-left').click(function(e) {
-				e.preventDefault();
-				self.prev();
-			});
-			self._nextImageArr = self.sliderRoot.find('.arrow-right').click(function(e) {
-				e.preventDefault();
-				self.next();
-			});
-		}
-		self._primaryMenu = self._headerSideMenu.find('.primary-menu > .current-menu-item');
-		
-
-		
-		if(self.settings.appendGalleriesToMenu && self.numAlbums > 1) {
-			if(self._primaryMenu.index() != 0) {
-				self._primaryMenu.before('<span class="menu-sep project-menu-sep">&mdash;</span>');
-				//albumsMenu = '<span class="menu-sep project-menu-sep">—</span>' + albumsMenu;
-			} 
-			albumsMenu += '<span class="menu-sep project-menu-sep">&mdash;</span>';
-
-			self._primaryMenu.append(albumsMenu);
-			self._galleryMenuItems = self._primaryMenu.find("#gallery-menu").find("li");
-
-			self._galleryMenuItems.click(function(e) {
-				e.preventDefault();
-				e.stopImmediatePropagation();
-				var newAlbumId = self.getAlbumIdByIdAtt( $(this).attr('data-id') );
-				self._moveTo(newAlbumId, 'y', 500, true, true);
-			});
-		}
+                if( self._arrowControlsEnabled ) {
+                    //self._arrowNav = self.sliderRoot.find('.arrow-nav');
+                    self._prevImageArr = self.sliderRoot.find('.arrow-left').click(function(e) {
+                        e.preventDefault();
+                        self.prev();
+                    });
+                    self._nextImageArr = self.sliderRoot.find('.arrow-right').click(function(e) {
+                        e.preventDefault();
+                        self.next();
+                    });
+                }
+                self._primaryMenu = self._headerSideMenu.find('.primary-menu > .current-menu-item');
 
 
 
-		self.currAlbumItems = self.currAlbum.find('.two-dim-item');
-		self.currItemId = 0;
-		self.currAlbumNumItems = self.currAlbumItems.length;
-		self.currAlbumScaleMode = self.currAlbum.data('img-scale');
+                if(self.settings.appendGalleriesToMenu && self.numAlbums > 1) {
+                    if(self._primaryMenu.index() != 0) {
+                        self._primaryMenu.before('<span class="menu-sep project-menu-sep">&mdash;</span>');
+                        //albumsMenu = '<span class="menu-sep project-menu-sep">—</span>' + albumsMenu;
+                    } 
+                    albumsMenu += '<span class="menu-sep project-menu-sep">&mdash;</span>';
 
-		
+                    self._primaryMenu.append(albumsMenu);
+                    self._galleryMenuItems = self._primaryMenu.find("#gallery-menu").find("li");
 
-		var resizeTimer;
-		$(window).bind(self._orientationChangeEvent, function() {	
-			if(resizeTimer) {
-				clearTimeout(resizeTimer);			
-			}
-			resizeTimer = setTimeout(function() { self.updateSliderSize(); }, 35);			
-		});	
-		self.updateSliderSize();
-
-		self.updateContents();
-
-		self._slidesWrapper.bind(self._downEvent, function(e) { self._onDragStart(e); });	
-
-		if(self.settings.keyboardNavEnabled) {
-			$(document).keydown( function(e) {
-				
-				if(!self._isDragging && !self._isAnimating) {
-					if (e.keyCode === 37) {
-						e.preventDefault();
-						self.prev();
-					} else if (e.keyCode === 39) {
-						e.preventDefault();
-						self.next();
-					} else if(e.keyCode === 40) {
-						e.preventDefault();
-						self.nextAlbum();
-					} else if(e.keyCode === 38) {
-						e.preventDefault();
-						self.prevAlbum();
-					} else if(e.keyCode === 73) {
-						self._toggleAlbumInfo();
-					}
-				}
-			});
-		}
-		$('body').bind('mouseleave', function(e) {
-			if(self._isDragging) {
-				self._onDragRelease(e);
-			}
-			
-		});
-
-		if(!self.hasTouch) {
-			self.sliderRoot.bind('mousewheel', function(e, delta, deltaX, deltaY) {
-    			if(delta < 0) {
-    				self.next();
-    			} else if(delta > 0) {
-    				self.prev();
-    			}
-			});
-		}
+                    self._galleryMenuItems.click(function(e) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        var newAlbumId = self.getAlbumIdByIdAtt( $(this).attr('data-id') );
+                        self._moveTo(newAlbumId, 'y', 500, true, true);
+                    });
+                }
 
 
-		self._changedByHash = false;
-		self._ignoreHashChange = false;
-		self._hashTimeout;
-		self._unblockHashChange();
+
+                self.currAlbumItems = self.currAlbum.find('.two-dim-item');
+                self.currItemId = hash ? self._getImageIdFromHash(hash) : 0;
+                self.currAlbumNumItems = self.currAlbumItems.length;
+                self.currAlbumScaleMode = self.currAlbum.data('img-scale');
 
 
-		// if(!self.hasTouch) {
-		
-		// }
-		//if(!self.hasTouch) {
-		
-		// var actionNotifier = $('<div class="action-notifier">Click and drag to navigate</div>');
-		// actionNotifier.appendTo($('body'));
+
+                var resizeTimer;
+                $(window).bind(self._orientationChangeEvent, function() {	
+                    if(resizeTimer) {
+                        clearTimeout(resizeTimer);			
+                    }
+                    resizeTimer = setTimeout(function() { self.updateSliderSize(); }, 35);			
+                });	
+                self.updateSliderSize();
+
+                self.updateContents();
+
+                self._slidesWrapper.bind(self._downEvent, function(e) { self._onDragStart(e); });	
+
+                if(self.settings.keyboardNavEnabled) {
+                    $(document).keydown( function(e) {
+
+                        if(!self._isDragging && !self._isAnimating) {
+                            if (e.keyCode === 37) {
+                                e.preventDefault();
+                                self.prev();
+                            } else if (e.keyCode === 39) {
+                                e.preventDefault();
+                                self.next();
+                            } else if(e.keyCode === 40) {
+                                e.preventDefault();
+                                self.nextAlbum();
+                            } else if(e.keyCode === 38) {
+                                e.preventDefault();
+                                self.prevAlbum();
+                            } else if(e.keyCode === 73) {
+                                self._toggleAlbumInfo();
+                            }
+                        }
+                    });
+                }
+                $('body').bind('mouseleave', function(e) {
+                    if(self._isDragging) {
+                        self._onDragRelease(e);
+                    }
+
+                });
+
+                if(!self.hasTouch) {
+                    self.sliderRoot.bind('mousewheel', function(e, delta, deltaX, deltaY) {
+                        if(delta < 0) {
+                            self.next();
+                        } else if(delta > 0) {
+                            self.prev();
+                        }
+                    });
+                }
 
 
-		
-
-		if(self.hasTouch) {
-
-			$.idleTimer(self.hasTouch ? 4000 : 2000,document, {
-				events: 'mousemove touchend mouseup'
-			});
-			$(document).bind("idle.idleTimer", function(){
-				if(!self._albumInfoOpen) {
-					self._hideAllControls();
-				}
-				
-			});
-			// $(document).bind("active.idleTimer", function(){
-			// 	if(!self.hasTouch) {
-			// 		self._showAllControls();
-			// 	}
-			// });
-		} else {
-			// var hoverTimeout;
-			// $(document).hover(
-			// 	function () {
-			// 		clearTimeout(hoverTimeout);
-			// 		if(!self._isVideoPlaying) {
-			// 			self._showAllControls();
-			// 		}
-			// 	}, 
-			// 	function () {
-			// 		clearTimeout(hoverTimeout);
-			// 		if(!self._albumInfoOpen && !self._isVideoPlaying) {
-			// 			hoverTimeout = setTimeout(function() {
-			// 				self._hideAllControls();
-			// 			}, 300);
-			// 		}
-			// 	}
-			// );
-		}
-			// 	console.log('active');
-			// });
+                self._changedByHash = false;
+                self._ignoreHashChange = false;
+                self._hashTimeout;
+                self._unblockHashChange();
 
 
-		//}
-		
-		if(self.settings.autoOpenDescription) {
-			if(self.sliderWidth > 900) {
-				self._showAlbumInfo();
-				self._fadeOut(self._albumIndicator);
-				self.albumsArr[self.currAlbumId].data('sawInfo', true);
-			}
-		}
+                // if(!self.hasTouch) {
+
+                // }
+                //if(!self.hasTouch) {
+
+                // var actionNotifier = $('<div class="action-notifier">Click and drag to navigate</div>');
+                // actionNotifier.appendTo($('body'));
+
+
+
+
+                if(self.hasTouch) {
+
+                    $.idleTimer(self.hasTouch ? 4000 : 2000,document, {
+                        events: 'mousemove touchend mouseup'
+                    });
+                    $(document).bind("idle.idleTimer", function(){
+                        if(!self._albumInfoOpen) {
+                            self._hideAllControls();
+                        }
+
+                    });
+                    // $(document).bind("active.idleTimer", function(){
+                    // 	if(!self.hasTouch) {
+                    // 		self._showAllControls();
+                    // 	}
+                    // });
+                } else {
+                    // var hoverTimeout;
+                    // $(document).hover(
+                    // 	function () {
+                    // 		clearTimeout(hoverTimeout);
+                    // 		if(!self._isVideoPlaying) {
+                    // 			self._showAllControls();
+                    // 		}
+                    // 	}, 
+                    // 	function () {
+                    // 		clearTimeout(hoverTimeout);
+                    // 		if(!self._albumInfoOpen && !self._isVideoPlaying) {
+                    // 			hoverTimeout = setTimeout(function() {
+                    // 				self._hideAllControls();
+                    // 			}, 300);
+                    // 		}
+                    // 	}
+                    // );
+                }
+                // 	console.log('active');
+                // });
+
+
+                //}
+
+                if(self.settings.autoOpenDescription) {
+                    if(self.sliderWidth > 900) {
+                        self._showAlbumInfo();
+                        self._fadeOut(self._albumIndicator);
+                        self.albumsArr[self.currAlbumId].data('sawInfo', true);
+                    }
+                }
 		
 		// self._autoHideTimeoutEnabled = true;
 		// self._autoHideTimeoutDuration = 1000;
@@ -589,12 +592,7 @@
        		
 		// });
 		//self._startAutoHideTimer();
-	} /* constructor end */
-	
-	
-	
-	
-	TwoDimSlider.prototype = {
+	},  
 		getAlbumIdByIdAtt:function(idAtt) {
 
 			var self = this,
@@ -629,6 +627,34 @@
 		// 		self._cursorAdded = false;
 		// 	}
 		// },
+                
+                _getAlbumIdFromHash: function (location_hash) {
+                    
+                        var hash = location_hash.replace(/^#/, ''); 
+                        var albumHashFragment, album;
+
+                        if (hash.indexOf('/') !== -1) {
+                            albumHashFragment = hash.substr(0, hash.indexOf('/'));
+                        }
+                        album = this.getAlbumIdByIdAtt(albumHashFragment || hash);
+                        return album;
+                },
+
+                _getImageIdFromHash: function (location_hash) {
+
+                        var hash = location_hash.replace(/^#/, ''); 
+                        var imgName, imgId;
+
+                        if (hash.indexOf('/') !== -1) {
+                            imgHashFragment = hash.substr(hash.indexOf('/') + 1);
+                            if (imgHashFragment) {
+                                imgName = decodeURIComponent(imgHashFragment);
+                            }
+                        }
+                        
+                        imgId = this._getImgId(imgName);
+                        return imgId;
+                },
 		_blockHashChange:function() {
 			$(window).unbind('hashchange.tds');
 		},
@@ -639,13 +665,9 @@
 		},
 		_unblockHashChange:function() {
 			var self = this;
-			$(window).bind('hashchange.tds', function(e){
-				var hash = location.hash;			
-				hash = hash.replace(/^#/, ''); 
-				
-				var newAlbumId = self.getAlbumIdByIdAtt(hash);
-				self._moveTo(newAlbumId, 'y', 500);
-			});
+			$(window).bind('hashchange.tds', function () {
+			    self._onHashChange();
+			}); 
 		},
 		_updateHash:function(hash) {
 			var self = this;
@@ -660,6 +682,107 @@
 		    	self._unblockHashChange();
 		    }, 60);
 		},
+
+                _onHashChange: function () {
+                    var hash = location.hash;
+                    var startAlbum = 0;
+                    var startImgId;
+                    var self = this;
+
+                    if(hash) {
+                        startImgId =  this._getImageIdFromHash(hash);
+                        startAlbum = this._getAlbumIdFromHash(hash);
+                    }
+
+                    if (startAlbum !== self.currAlbumId) {
+
+                        self.init();
+
+                    } else {
+
+                        if (startImgId === self.currItemId) {
+                            return;
+                        }
+
+                        if (startImgId > self.currItemId) {
+                            if (startImgId - self.currItemId === 1) {
+                                self._moveTo('next', 'x', this.settings.transitionSpeed, false, true);
+                            } else {
+                                self.init();
+                            }
+                        } else {
+                            if (startImgId - self.currItemId === -1) {
+                                self._moveTo('prev', 'x', this.settings.transitionSpeed, false, true);
+                            } else {
+                                self.init();
+                            }
+                        }
+                    }
+
+                },
+
+                _getItemLinkText: function (item) {
+                    
+                    var imgLink = $(item).find('a');
+                    var imgLinkText = $(imgLink).text();
+                    return imgLinkText;
+                },
+
+                _getImageLinkTextById: function (items, id) {
+                    
+                    var imgNode = items[id];
+                    var imgLinkText = this._getItemLinkText(imgNode);
+                    return imgLinkText;
+                },
+
+                _updateImageHashFrag: function (imageId) {
+
+                    var album = this.albumsArr[this.currAlbumId];
+				
+                    if(album) {
+                        var items = album.find('.two-dim-item');
+                        var imgLinkText = this._getImageLinkTextById(items, imageId);
+
+                        var albumId = $(album).data('albumId');
+                        var newHash = albumId + '/' + imgLinkText;
+
+                        this._blockHashChange();
+
+                        //update the hash
+                        this._updateHash(newHash);
+
+                        this._unblockHashChange();
+                    }
+
+                    
+                },
+                _getImgId: function (imgTitle) {
+                    
+                    var imgId = 0,i, item, imgTitle;
+
+                    var album = this.albumsArr[this.currAlbumId];
+
+                    if (!imgTitle) {
+                        return 0;
+                    }
+				
+                    if(album) {
+                        var items = album.find('.two-dim-item');
+                        if(items) {
+                            for (i = 0; i < items.length; i++) {
+                                item = items[i];
+                                itemTitle = this._getItemLinkText(item);
+                                if (itemTitle === imgTitle) {
+                                    return i;//assume same as index
+                                }
+                            };
+
+                        }
+                    }
+
+                    return 0;
+                },
+
 		_doBackAndForthAnim:function(type) {
 			var self = this,
 				newPos,
@@ -820,6 +943,7 @@
 						}
 					}
 				}
+                                self._updateImageHashFrag(self.currItemId);
 			} else {
 				
 				if(type === 'next') {
