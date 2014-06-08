@@ -515,7 +515,7 @@
                 self._changedByHash = false;
                 self._ignoreHashChange = false;
                 self._hashTimeout;
-                self._unblockHashChange();
+                //self._unblockHashChange();
 
 
                 // if(!self.hasTouch) {
@@ -592,6 +592,10 @@
        		
 		// });
 		//self._startAutoHideTimer();
+                //
+                $(window).bind('hashchange.tds', function () {
+                    self._onHashChange();
+                });
 	},  
 		getAlbumIdByIdAtt:function(idAtt) {
 
@@ -656,22 +660,19 @@
                         return imgId;
                 },
 		_blockHashChange:function() {
-			$(window).unbind('hashchange.tds');
+                        this._ignoreHashChange = true;
 		},
 		_updateAlbumHash:function() {
 
 			var self = this;
 			self._updateHash(self.albumsArr[self.currAlbumId].attr('data-album-id'));
 		},
+
 		_unblockHashChange:function() {
-			var self = this;
-			$(window).bind('hashchange.tds', function () {
-			    self._onHashChange();
-			}); 
+                        this._ignoreHashChange = false;
 		},
 		_updateHash:function(hash) {
 			var self = this;
-
 			self._blockHashChange();
 			window.location.hash = hash;
 			if(self._hashTimeout) {
@@ -688,6 +689,10 @@
                     var startAlbum = 0;
                     var startImgId;
                     var self = this;
+
+                    if (this._ignoreHashChange) {
+                        return;
+                    }
 
                     if(hash) {
                         startImgId =  this._getImageIdFromHash(hash);
@@ -721,6 +726,24 @@
 
                 },
 
+                _getItemFileName: function (item) {
+                    
+                    var imgLink = $(item).find('a');
+                    var imgLinkHref = $(imgLink).attr('href');
+                    var imgFileName = imgLinkHref;
+                    //strip path
+                    var imgFileNameMatch = imgLinkHref.match(/(?:[^\/]*\/)*(.*)/);
+                    if (imgFileNameMatch) {
+                        imgFileName = imgFileNameMatch[1];
+                    }
+                    //stip .jpg
+                    if (imgFileName.indexOf('.jpg') === imgFileName.length - 4) {
+                        imgFileName = imgFileName.substr(0, imgFileName.indexOf('.jpg'));
+                    }
+                    
+                    return imgFileName;
+                },
+
                 _getItemLinkText: function (item) {
                     
                     var imgLink = $(item).find('a');
@@ -731,7 +754,7 @@
                 _getImageLinkTextById: function (items, id) {
                     
                     var imgNode = items[id];
-                    var imgLinkText = this._getItemLinkText(imgNode);
+                    var imgLinkText = this._getItemFileName(imgNode);
                     return imgLinkText;
                 },
 
@@ -746,12 +769,8 @@
                         var albumId = $(album).data('albumId');
                         var newHash = albumId + '/' + imgLinkText;
 
-                        this._blockHashChange();
-
                         //update the hash
                         this._updateHash(newHash);
-
-                        this._unblockHashChange();
                     }
 
                     
