@@ -73,11 +73,11 @@ if ( ! function_exists( 'ds_get_og_image' ) ) {
 /*-----------------------------------------------------------------------------------*/
 
 // Paths to admin functions
-define('ADMIN_PATH', STYLESHEETPATH . '/admin/');
+define('ADMIN_PATH', get_template_directory() . '/admin/');
 define('ADMIN_DIR', get_template_directory_uri() . '/admin/');
 define('LAYOUT_PATH', ADMIN_PATH . '/layouts/');
 
-$themedata = wp_get_theme(STYLESHEETPATH . '/style.css');
+$themedata = wp_get_theme(get_template_directory() . '/style.css');
 define('THEMENAME', $themedata->get['Name']);
 define('OPTIONS', 'of_options'); 
 define('BACKUPS','of_backups'); 
