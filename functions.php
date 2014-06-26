@@ -185,6 +185,7 @@ add_action( 'widgets_init', 'dsframework_widgets_init' );
 /**
  * Enqueue scripts and styles
  */
+if ( ! function_exists( 'dsframework_scripts' ) ) {
 function dsframework_scripts() {
 	global $post;
 	// todo: optimize this part
@@ -234,6 +235,7 @@ function dsframework_scripts() {
 							'menu_text' => __('menu', 'dsframework') ));	
 	}
 	
+}
 }
 add_action( 'wp', 'dsframework_scripts' );
 
