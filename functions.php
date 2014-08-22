@@ -107,7 +107,7 @@ if(USE_LESS_CSS) {
 }
 
 // Admin gallery management
-include_once(get_template_directory() . '/inc/gallery-manage.php');
+include_once(get_stylesheet_directory() . '/inc/gallery-manage.php');
 
 
 
@@ -126,19 +126,19 @@ function dsframework_setup() {
 	/**
 	 * Custom template tags for this theme.
 	 */
-	require( get_template_directory() . '/inc/template-tags.php' );
+	require( get_stylesheet_directory() . '/inc/template-tags.php' );
 
 	/**
 	 * Custom functions that act independently of the theme templates
 	 */
-	require( get_template_directory() . '/inc/tweaks.php' );
+	require( get_stylesheet_directory() . '/inc/tweaks.php' );
 
 
 	/**
 	 * Make theme available for translation
 	 * Translations can be filed in the /languages/ directory
 	 */
-	load_theme_textdomain( 'dsframework', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'dsframework', get_stylesheet_directory() . '/languages' );
 	
 
 	/**
