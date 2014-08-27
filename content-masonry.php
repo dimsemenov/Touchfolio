@@ -8,7 +8,7 @@
 ?>
 <a class="project-thumb" href="<?php the_permalink(); ?>" data-album-id="<?php echo $post->post_name; ?>">
 	<div class="project-thumb-inside">
-		<?php 
+		<?php
 		if ( has_post_thumbnail($post->ID) ) {
 			the_post_thumbnail( 'gallery-thumb' );
 		} else {

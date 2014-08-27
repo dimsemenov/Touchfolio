@@ -26,12 +26,12 @@ function dsframework_content_nav( $nav_id ) {
 		$nav_class = 'site-navigation post-navigation';
 
 	?>
-	
+
 	<?php if ( is_single() ) : // navigation links for single posts ?>
-		<?php 
+		<?php
 		//echo $nav_id;
 		//previous_post_link( '<div class="nav-previous">%link</div>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'dsframework' ) . '</span> %title' );
-		//next_post_link( '<div class="nav-next">%link</div>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'dsframework' ) . '</span>' ); 
+		//next_post_link( '<div class="nav-next">%link</div>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'dsframework' ) . '</span>' );
 		?>
 	<?php elseif ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
 	<nav role="navigation" id="<?php echo $nav_id; ?>" class="text-block <?php echo $nav_class; ?>">
@@ -45,7 +45,7 @@ function dsframework_content_nav( $nav_id ) {
 		</nav>
 	<?php endif; ?>
 
-	
+
 	<?php
 }
 endif; // dsframework_content_nav
@@ -70,14 +70,14 @@ function dsframework_comment( $comment, $args, $depth ) {
 			break;
 		default :
 	?>
-	<?php 
+	<?php
         if ($comment->user_id == 1)
             $acomment = 'author-comment';
-        else 
+        else
         	$acomment = '';
    ?>
 	<li <?php comment_class($acomment); ?> id="comment-<?php comment_ID(); ?>">
-		
+
 		<footer>
 			<div class="comment-author vcard">
 				<?php echo get_avatar( $comment, 48 ); ?>

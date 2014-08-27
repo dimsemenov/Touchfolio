@@ -27,7 +27,7 @@
 
 	<?php if ( have_comments() ) : ?>
 		<h2 class="comments-title"><?php _e('Comments', 'dsframework'); ?></h2>
-		
+
 
 		<ul class="commentlist">
 			<?php
@@ -61,14 +61,14 @@
 	<?php
 		$comments_args = array(
 			'fields' => array(
-				 'author' => '<p class="comment-form-author"><label for="author">'. __('Name <span class="required-field-label">(required)</span>', 'dsframework') . '</label> <input id="author" required="required" name="author" type="text" value="" size="30" aria-required="true"></p>', 
-				 'email' => '<p class="comment-form-email"><label for="email">'. __('Email <span class="required-field-label">(required, will not be published)</span>', 'dsframework') . '</label><input id="email" required="required" name="email" type="email" value="" size="30" aria-required="true"></p>', 
-				 'url' => '<p class="comment-form-url"><label for="url">'. __('Website', 'dsframework') . '</label><input id="url" name="url" type="url" value="" size="30" aria-required="true"></p>', 
+				 'author' => '<p class="comment-form-author"><label for="author">'. __('Name <span class="required-field-label">(required)</span>', 'dsframework') . '</label> <input id="author" required="required" name="author" type="text" value="" size="30" aria-required="true"></p>',
+				 'email' => '<p class="comment-form-email"><label for="email">'. __('Email <span class="required-field-label">(required, will not be published)</span>', 'dsframework') . '</label><input id="email" required="required" name="email" type="email" value="" size="30" aria-required="true"></p>',
+				 'url' => '<p class="comment-form-url"><label for="url">'. __('Website', 'dsframework') . '</label><input id="url" name="url" type="url" value="" size="30" aria-required="true"></p>',
 			),
 			'cancel_reply_link' => __('cancel reply', 'dsframework'),
 			'title_reply' => 'Leave a Comment',
-	        // change the title of send button 
-	     
+	        // change the title of send button
+
 	        // remove "Text or HTML to be displayed after the set of comment fields"
 	        'comment_notes_after' => '',
 	        'comment_notes_before' => '',
