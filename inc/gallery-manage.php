@@ -191,7 +191,7 @@ if( !class_exists( 'dsframework_gallery' ) )
 			$out .= '<a class="dsframework-remove-gallery-item" href="#" title="'. __('Remove item', 'dsframework') .'"></a>';
 			$out .= '<input type="hidden" value="'. $id .'" name="dsframework-gallery[attachment_ids][]" />';
 
-			$out .= '<input type="hidden" value="'. $image[0] .'" name="dsframework-gallery[attachment_urls][]" />';
+			$out .= '<input type="hidden" value="'. str_replace(get_site_url(), '', $image[0]) .'" name="dsframework-gallery[attachment_urls][]" />';
 			$out .= '<input type="hidden" value="'. $image[1] .'" name="dsframework-gallery[attachment_widths][]" />';
 			$out .= '<input type="hidden" value="'. $image[2] .'" name="dsframework-gallery[attachment_heights][]" />';
 
