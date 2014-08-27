@@ -206,7 +206,7 @@ function dsframework_scripts() {
 		    wp_enqueue_script( 'jquery.masonry', DS_THEME_PATH . '/js/jquery.masonry.min.js' );
 		} else {
 			$min = defined('DS_MIN_SCRIPTS') && !DS_MIN_SCRIPTS ? '' : '.min';
-			wp_enqueue_script( 'jquery.two-dimensional-slider', DS_THEME_PATH . "/js/jquery.slider-pack.1.1{$min}.js" );
+			wp_enqueue_script( 'jquery.two-dimensional-slider', DS_THEME_PATH . "/js/jquery.slider-pack.1.1.js" );
 
 			wp_localize_script( 'jquery.two-dimensional-slider', 'tdSliderVars', array(
 							'nextAlbum' => __('Next project', 'dsframework'),
@@ -219,7 +219,8 @@ function dsframework_scripts() {
 							'backToList' => __('&larr; back to list', 'dsframework'),
 							'swipeUp' => __('Swipe up', 'dsframework'),
 							'swipeDown' => __('Swipe down', 'dsframework'),
-							'autoOpenProjectDesc' => get_ds_option('auto_open_project_desc')
+							'autoOpenProjectDesc' => get_ds_option('auto_open_project_desc'),
+							'showShareButtons' => get_ds_option('project_desc_share_buttons')
 							  ));
 		}
 

@@ -174,6 +174,12 @@ $of_options[] = array( "name" => __("Auto-open project description", 'dsframewor
 					"std" => "1",
 					"type" => "checkbox");
 
+$of_options[] = array( "name" => __("Show share buttons in project description", 'dsframework'),
+					"desc" => __("Show social media share buttons in the project description box."),
+					"id" => "project_desc_share_buttons",
+					"std" => "1",
+					"type" => "checkbox");
+
 $of_options[] = array( "name" => __("Justify content", 'dsframework'),
 					"desc" => __("Justify page content."),
 					"id" => "justify_content",
