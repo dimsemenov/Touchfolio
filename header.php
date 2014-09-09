@@ -14,7 +14,7 @@
 			echo ' | ' . sprintf( __( 'Page %s', 'ds-framework' ), max( $paged, $page ) );
 	?></title>
 	<?php if(get_ds_option('custom_favicon')) { ?>
-	<link rel="shortcut icon" href="<?php echo get_ds_option('custom_favicon'); ?>" /> 
+	<link rel="shortcut icon" href="<?php echo get_ds_option('custom_favicon'); ?>" />
 	<?php } ?>
 	<?php // Facebook stuff ?>
 	<?php if(get_ds_option('fb_admin_id')) { ?>
@@ -31,7 +31,7 @@
 	<meta property="og:description" content="<?php bloginfo('description'); ?>" />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="<?php echo get_ds_option('main_logo'); ?>" /> <?php } ?>
-	<?php 
+	<?php
 	$ds_gcode = get_ds_option('google_fonts_code');
 	if($ds_gcode) {
 		echo $ds_gcode;
@@ -45,21 +45,21 @@
 <?php wp_head(); ?>
 
 	<style type="text/css">
-	<?php 
+	<?php
 	if(get_ds_option('justify_content')==1){
 	?>
 		.entry-content {
 			text-align: justify;
 		}
-	<?php 
+	<?php
 	}
-	
+
 	if(get_ds_option('menu_indented')==1){
 	?>
 		.menu .sub-menu {
 			margin-left: 12px;
 		}
-	<?php 
+	<?php
 	}
 	?>
 	</style>
@@ -72,13 +72,13 @@
 		<section class="top-logo-group">
 			<h1 class="logo">
 				<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-					<?php 
+					<?php
 					$logo = get_ds_option( 'main_logo' );
 					if( $logo ) {
 						echo '<img alt="' . __( 'home', 'dsframework' ) . '" src="' . $logo . '" />';
 					} else {
 						echo get_bloginfo( 'name' );
-					} 
+					}
 					?>
 				</a>
 			</h1>
@@ -87,16 +87,16 @@
 		<div class="menus-container">
 			<span class="menu-sep">&mdash;</span>
 			<nav id="main-menu" class="menu">
-			<?php 
+			<?php
 			if ( has_nav_menu( 'primary' ) ) {
-				echo wp_nav_menu( array( 
+				echo wp_nav_menu( array(
 					'theme_location' => 'primary',
 					'container'      => false,
 					'container_class' => 'menu-header',
 					'menu_class' => 'primary-menu',
 					'echo' => false
-				)); 
-			} else { 
+				));
+			} else {
 			?>
 				<p><?php _e('Primary menu is not selected and/or created. Please go to "Appearance &rarr; Menus" and setup menu.' ,'dsframework'); ?></p>
 			<?php } ?>
@@ -105,7 +105,7 @@
 			<?php if ( has_nav_menu( 'social' ) ) { ?>
 				<nav class="social-menu menu">
 					<?php
-					echo wp_nav_menu( array( 
+					echo wp_nav_menu( array(
 						'theme_location' => 'social',
 						'container'      => false,
 						'container_class' => '',

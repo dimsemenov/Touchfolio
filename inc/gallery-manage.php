@@ -1,24 +1,24 @@
 <?php
 /**
- * Class manages admin area of gallery page — adding images to gallery, saving data. 
- * 
+ * Class manages admin area of gallery page — adding images to gallery, saving data.
+ *
  * @package dsframework
  * @since dsframework 1.0
  */
 
 if( !class_exists( 'dsframework_gallery' ) )
-{	
+{
 	class dsframework_gallery
 	{
 		public function init() {
-			add_action( 'init', array(&$this, 'register_ds_gallery_post') ); 
+			add_action( 'init', array(&$this, 'register_ds_gallery_post') );
 			add_action( 'wp_ajax_dsframework_add_gallery_item', array(&$this, 'dsframework_add_gallery_item') );
 
 			add_filter( 'media_upload_tabs', array(&$this, 'remove_unused_tab'));
 			add_filter( 'attachment_fields_to_edit', array(&$this, 'add_buttons'), 10, 2 );
 			add_filter( 'media_upload_form_url', array(&$this, 'parse_url'), 10, 2);
 			add_filter( 'admin_enqueue_scripts', array(&$this, 'load_scripts_and_styles'), 10);
-			add_filter( 'manage_edit-ds-gallery_columns', array(&$this, 'show_ds_gallery_column') );	
+			add_filter( 'manage_edit-ds-gallery_columns', array(&$this, 'show_ds_gallery_column') );
 			add_action( 'manage_posts_custom_column',array(&$this, 'ds_gallery_custom_columns') );
 			add_action( 'admin_menu', array(&$this, 'ds_gallery_add_box'));
 			add_action( 'save_post', array(&$this, 'save_postdata') );
@@ -66,22 +66,22 @@ if( !class_exists( 'dsframework_gallery' ) )
 			}
 			return $form_action_url;
 		}
-		
+
 		public function load_scripts_and_styles($hook) {
 			if( isset($_REQUEST['dsframework-gallery-enabled']) && $_REQUEST['dsframework-gallery-enabled'] && $hook == 'media-upload-popup' ) {
 				wp_enqueue_script( 'dsframework-gallery-js', DS_THEME_PATH . '/admin/js/dsframework-gallery-admin.js', array('jquery'));
 				wp_localize_script( 'dsframework-gallery-js', 'dsframework_gallery_ajax_vars', array(
 					'mediaPopupEnabled' => true
 				));
-				wp_enqueue_style( 'dsframework-gallery-css', DS_THEME_PATH . '/admin/css/dsframework-gallery-admin.css' ); 
+				wp_enqueue_style( 'dsframework-gallery-css', DS_THEME_PATH . '/admin/css/dsframework-gallery-admin.css' );
 			} else  if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 		    	global $post;
-		        if ( 'ds-gallery' === $post->post_type ) {     
+		        if ( 'ds-gallery' === $post->post_type ) {
 		           wp_enqueue_script( 'dsframework-gallery-js', DS_THEME_PATH . '/admin/js/dsframework-gallery-admin.js', array('jquery'));
 		        }
 		    }
 		}
-		
+
 		public function add_buttons( $form_fields, $post ) {
 			if(isset($_REQUEST['dsframework-gallery-enabled']) || isset($_REQUEST['fetch'])) {
 				$form_fields['dsframework_media_box_add_button'] = array(
@@ -92,15 +92,15 @@ if( !class_exists( 'dsframework_gallery' ) )
 			}
 			return $form_fields;
 		}
-		
-		public function remove_unused_tab($tabs_to_add) {	
+
+		public function remove_unused_tab($tabs_to_add) {
 			if(isset($_REQUEST['dsframework-gallery-enabled'])) {
 				$tabs_to_add = array('type' => 'From Computer', 'library' => 'Media Library');
 			}
 			return $tabs_to_add;
 		}
 
-		public function dsframework_add_gallery_item() {	
+		public function dsframework_add_gallery_item() {
 			if(!is_admin() || !wp_verify_nonce( $_POST['dsframework_ajax_nonce'], 'dsframework_ajax_nonce' ) ) {
 				return;
 			}
@@ -153,13 +153,13 @@ if( !class_exists( 'dsframework_gallery' ) )
 				'parent_item_colon' => ''
 			);
 
-			
+
 			$args = array(
 				'labels' => $labels,
 				'public' => true,
 				'publicly_queryable' => true,
 				'show_ui' => true,
-				
+
 				'rewrite' => array(
 					'slug' => 'gallery'
 				),
@@ -169,9 +169,9 @@ if( !class_exists( 'dsframework_gallery' ) )
 				'menu_position' => 5,
 				'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
 				'menu_icon' => 'dashicons-images-alt'
-			  ); 
-			  
-			
+			  );
+
+
 			register_post_type( 'ds-gallery' , $args);
 			flush_rewrite_rules();
 		}
@@ -179,7 +179,7 @@ if( !class_exists( 'dsframework_gallery' ) )
 
 		public function get_gallery_item( $gallery_item ) {
 			$id = $gallery_item['attachment_id'];
-			
+
 			$image_size = get_ds_option('gallery_image_size');
 			if(!$image_size) {
 				$image_size = 'full';
@@ -191,10 +191,10 @@ if( !class_exists( 'dsframework_gallery' ) )
 			$out .= '<a class="dsframework-remove-gallery-item" href="#" title="'. __('Remove item', 'dsframework') .'"></a>';
 			$out .= '<input type="hidden" value="'. $id .'" name="dsframework-gallery[attachment_ids][]" />';
 
-			$out .= '<input type="hidden" value="'. $image[0] .'" name="dsframework-gallery[attachment_urls][]" />';
+			$out .= '<input type="hidden" value="'. str_replace(get_site_url(), '', $image[0]) .'" name="dsframework-gallery[attachment_urls][]" />';
 			$out .= '<input type="hidden" value="'. $image[1] .'" name="dsframework-gallery[attachment_widths][]" />';
 			$out .= '<input type="hidden" value="'. $image[2] .'" name="dsframework-gallery[attachment_heights][]" />';
-			
+
 
 			$out .= '<div style="display:none;">';
 			$out .= 	'<table class="gallery-item-hidden-opts" ><tbody>';
@@ -211,7 +211,7 @@ if( !class_exists( 'dsframework_gallery' ) )
 
 			// Image scale mode
 			$img_scale = $gallery_item['single_img_scale_mode'];
-			
+
 			if(!$img_scale || $img_scale == 'default') {
 				$f_selected = 'selected';
 			} else {
@@ -221,9 +221,9 @@ if( !class_exists( 'dsframework_gallery' ) )
 			$out .= 	'<td><label for="single-image-scale-mode">' . __('Image scale mode', 'dsframework') . '</label></td>';
 			$out .= 	'<td><select id="single-image-scale-mode" name="dsframework-gallery[single_img_scale_mode][]" >';
 			$out .= 		'<option value="default" '.$f_selected.'>'. __('Default (from gallery settings)', 'dsframework') .'</option>';
-			$out .= 		'<option value="fill" ' . selected( $img_scale, 'fill', false ) .'>' . __('Fill the area', 'dsframework') . '</option>';	
-			$out .= 		'<option value="fit-if-smaller" ' . selected( $img_scale, 'fit-if-smaller', false ) .'>' . __('Fit in area', 'dsframework') . '</option>';		
-			$out .= 		'<option value="none"' . selected( $img_scale, 'none', false ) .'>' . __('Don\'t scale', 'dsframework') . '</option>';		
+			$out .= 		'<option value="fill" ' . selected( $img_scale, 'fill', false ) .'>' . __('Fill the area', 'dsframework') . '</option>';
+			$out .= 		'<option value="fit-if-smaller" ' . selected( $img_scale, 'fit-if-smaller', false ) .'>' . __('Fit in area', 'dsframework') . '</option>';
+			$out .= 		'<option value="none"' . selected( $img_scale, 'none', false ) .'>' . __('Don\'t scale', 'dsframework') . '</option>';
 			$out .= 	'</select></td>';
 			$out .= '</tr>';
 
@@ -259,7 +259,7 @@ if( !class_exists( 'dsframework_gallery' ) )
 					echo get_the_term_list($post->ID, 'ds-gallery-category', '', ', ','');
 					break;
 			}
-		}	
+		}
 		// Add meta box
 		public function ds_gallery_add_box() {
 		    global $meta_box;
@@ -268,22 +268,22 @@ if( !class_exists( 'dsframework_gallery' ) )
 		    add_meta_box('ds-gallery-beta-notice', 'Warning', array(&$this, 'ds_gallery_show_beta_notice'), 'ds-gallery', 'normal', 'low');
 		}
 		public function ds_gallery_show_beta_notice() {
-			_e('<p style="font-size: 14px; line-height: 20px ">Please note, theme is currently in beta and may some issues, please <a href="http://support.dimsemenov.com/forums/159023-touchfolio">vote for new features and report bugs</a>.<br/>To get notified about complete theme release, follow me on <a href="http://twitter.com/dimsemenov">Twitter</a> or <a href="http://dimsemenov.com/subscribe.html">join my email newsletter</a> (unsubscribe at any time, MailChimp).</p>', 'dsframework'); 
+			_e('<p style="font-size: 14px; line-height: 20px ">Please note, theme is currently in beta and may some issues, please <a href="http://support.dimsemenov.com/forums/159023-touchfolio">vote for new features and report bugs</a>.<br/>To get notified about complete theme release, follow me on <a href="http://twitter.com/dimsemenov">Twitter</a> or <a href="http://dimsemenov.com/subscribe.html">join my email newsletter</a> (unsubscribe at any time, MailChimp).</p>', 'dsframework');
 		}
 		public function ds_gallery_show_box($currentPost, $metabox) {
 	   		$post_id = $currentPost->ID;
 	   		$gallery_data = get_post_meta($post_id , 'dsframework-gallery', 'true' );
 	   		wp_nonce_field( 'dsframework_gallery', 'dsframework_gallery_nonce' );
-	   		
+
 	   		$out = "";
 			$gallery_items = "";
-			
+
 			if($gallery_data && count($gallery_data['attachment_ids'])) {
 				$j = 0;
 				$alt_attr = $gallery_data['attachment_alt_attr'];
 				$video_urls = $gallery_data['video_url'];
 				$img_scale_modes = $gallery_data['single_img_scale_mode'];
-			
+
 				foreach($gallery_data['attachment_ids'] as $attachment_id_item) {
 					$gallery_item = array(
 						'attachment_id' => $attachment_id_item,
@@ -315,14 +315,14 @@ if( !class_exists( 'dsframework_gallery' ) )
 			$bg_color = get_post_meta($post_id , 'dsframework-album-background-color', 'true' );
 			$bg_pattern = get_post_meta($post_id , 'dsframework-album-background-pattern', 'true' );
 			?>
-			<table><tbody>		
+			<table><tbody>
 				<tr>
 					<td><label for="image-scale-mode"><?php _e('Image scale mode', 'dsframework'); ?></label></td>
 					<td><select id="image-scale-mode" name="dsframework-image-scale-mode" >
 						<option value="default" <?php if(!$img_scale_mode || $img_scale_mode=='default'){ echo 'selected'; } ?>><?php _e('Default (from global gallery settings)', 'dsframework'); ?></option>
 						<option value="fit-if-smaller" <?php if($img_scale_mode=='fit-if-smaller'){ echo 'selected'; } ?>><?php _e('Fit in area', 'dsframework'); ?></option>
-						<option value="fill" <?php if($img_scale_mode=='fill'){ echo 'selected'; } ?>><?php _e('Fill the area', 'dsframework'); ?></option>	
-						<option value="none" <?php if($img_scale_mode=='none'){ echo 'selected'; } ?>><?php _e('Don\'t scale', 'dsframework'); ?></option>				
+						<option value="fill" <?php if($img_scale_mode=='fill'){ echo 'selected'; } ?>><?php _e('Fill the area', 'dsframework'); ?></option>
+						<option value="none" <?php if($img_scale_mode=='none'){ echo 'selected'; } ?>><?php _e('Don\'t scale', 'dsframework'); ?></option>
 					</select></td>
 					<td></td>
 				</tr>

@@ -6,7 +6,7 @@
 #media-items .media-item {
 	border: 0 !important;
 }
-#media-items .describe-toggle-on, 
+#media-items .describe-toggle-on,
 #media-items .describe-toggle-off {
 	display: none;
 }
@@ -116,7 +116,7 @@ top: 6px;
 left: 6px;
 border-radius: 12px;
 border: 2px solid #ffee5e;
-} 
+}
 .ml-submit,
 .savebutton {
 	display: none !important;

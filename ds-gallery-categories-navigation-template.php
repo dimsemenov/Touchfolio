@@ -1,13 +1,13 @@
 <?php
 /**
- * 
+ *
  * Template Name: Gallery Categories Navigation Page
- * 
+ *
  * The template for displaying gallery page with masonry layout.
  *
  * @package dsframework
  * @since dsframework 1.0
- * 
+ *
  */
 ?>
 <?php get_header(); ?>
@@ -35,11 +35,11 @@
 		}else{
 			$categories = get_gallery_categories(array('hide_empty' => 0));
 		}
-		
+
 
 		?>
 		<section class="albums-thumbnails clearfix">
-		<?php 
+		<?php
 
 
 		foreach ( $categories as $subcategory ) {
@@ -52,14 +52,14 @@
 					$postLoop->the_post();
 
 					get_template_part( 'content', 'categories-navigation' );
-		
+
 				}
 			}
 		}
 
 		if(isset($gallery_category)){
 			$postLoop = post_in_gallery_category( $gallery_category );
-			
+
 			while ( $postLoop->have_posts() ) {
 				$postLoop->the_post();
 				get_template_part( 'content', 'masonry' );

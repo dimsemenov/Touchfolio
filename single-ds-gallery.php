@@ -21,7 +21,7 @@ get_header(); ?>
 									<?php previous_post_link('%link', $wp_query->max_num_pages); ?>
 									<?php next_post_link('%link', $wp_query->max_num_pages); ?>
 								</div>
-								
+
 							<?php endwhile; ?>
 							<?php wp_reset_postdata(); ?>
 						</ul>
