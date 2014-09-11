@@ -6,7 +6,7 @@
  * @since dsframework 1.0
  */
 ?>
-		
+
 		<div id="secondary" class="widget-area" role="complementary">
 			<?php if ( is_active_sidebar( 'regular-page-sidebar' ) ) { ?>
 				<span class="menu-sep">&mdash;</span>

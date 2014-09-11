@@ -8,7 +8,7 @@
 ?>
 <?php
 		$album_data = "";
-		$default_img_scale_mode = get_ds_option('gallery_scale_mode'); 
+		$default_img_scale_mode = get_ds_option('gallery_scale_mode');
 		$default_bg_color = get_ds_option('gallery_background');
 		if(!$default_bg_color) {
 			$default_bg_color = 'transparent';
@@ -24,29 +24,29 @@
 
 
 		$j = 0;
-		if(isset($gallery_meta['attachment_urls'])) 
+		if(isset($gallery_meta['attachment_urls']))
 			$image_urls = $gallery_meta['attachment_urls'];
-		else 
+		else
 			$image_urls = 0;
 
-		if(isset($gallery_meta['attachment_widths'])) 
+		if(isset($gallery_meta['attachment_widths']))
 			$image_widths = $gallery_meta['attachment_widths'];
 		else
 			$image_widths = 0;
-		
+
 
 		if(isset($gallery_meta['attachment_heights']))
 			$image_heights = $gallery_meta['attachment_heights'];
-		else 
+		else
 			$image_heights = 0;
 
 
-		if(isset($gallery_meta['attachment_alt_attr'])) 
+		if(isset($gallery_meta['attachment_alt_attr']))
 			$alt_attributes = $gallery_meta['attachment_alt_attr'];
 		else
 			$alt_attributes = 0;
-		
-		
+
+
 		if(isset($gallery_meta['video_url']))
 			$video_urls = $gallery_meta['video_url'];
 		else
@@ -60,13 +60,13 @@
 
 
 		$video_data = '';
-		if($gallery_meta) { 
+		if($gallery_meta) {
 			if(!isset($post_meta['dsframework-image-scale-mode']) || $post_meta['dsframework-image-scale-mode'][0] == 'default') {
 				$img_scale = $default_img_scale_mode;
 			} else {
 				$img_scale = $post_meta['dsframework-image-scale-mode'][0];
 			}
-			
+
 
 			if(isset($post_meta['dsframework-album-background-color'])) {
 				$bg_color = $post_meta['dsframework-album-background-color'][0];
@@ -76,13 +76,13 @@
 			} else {
 				$bg_color = $default_bg_color;
 			}
-			 
+
 			if(isset($post_meta['dsframework-album-background-pattern'])) {
 				$bg_pattern = $post_meta['dsframework-album-background-pattern'][0];
 				if($bg_pattern == '') {
 					$bg_pattern = $default_bg_pattern;
 				}
-				
+
 			} else {
 				$bg_pattern = $default_bg_pattern;
 			}
@@ -103,7 +103,7 @@
 			$album_data .= 	"\t\t<div class=\"album-content\">{$content}</div>\n";
 			$album_data .= "\t</div>\n";
 			$album_data .= 	"\t<ul>\n";
-			
+
 
 			foreach($gallery_meta['attachment_ids'] as $attachment_id_item) {
 				if($video_urls) {
@@ -112,7 +112,7 @@
 						$video_data = '';
 					else
 						$video_data = ' data-video-url="'.htmlspecialchars($video_data).'"';
-				} 
+				}
 
 				if($alt_attributes) {
 					$alt_attr = $alt_attributes[$j];
@@ -140,16 +140,17 @@
 				$desc = get_ds_option('show_image_desc')==1 ? get_post( $attachment_id_item )->post_content : null;
 				$title = get_ds_option('show_image_title')==1 ? get_post( $attachment_id_item )->post_title : null;
 
-				
-				if(!$alt_attr) 
+
+				if(!$alt_attr)
 					$alt_attr = $image_urls[$j];
-				
+
 				$album_data .= "\t\t<li class=\"two-dim-item\"{$video_data}{$img_scale} data-img-title=\"{$title}\" data-img-desc=\"{$desc}\" data-img-width=\"{$image_widths[$j]}\" data-img-height=\"{$image_heights[$j]}\">";
+
 				$album_data .= "<a href=\"{$image_urls[$j]}\">{$alt_attr}</a>";
 
 				$album_data .=  "</li>\n";
 				$j++;
-			}	
+			}
 
 			$album_data .= "\t</ul>\n";
 			$album_data .= 	"</li>\n";
@@ -157,4 +158,4 @@
 			$album_data .= "<p>Empty album</p>";
 		}
 		echo $album_data;
-?>	
+?>
