@@ -1,0 +1,50 @@
+{
+	"globals": {
+		"console": false,
+		"debug" : false,
+		"jQuery" : false
+	},
+
+	"laxcomma":  true, // Ignore Comma Warnings
+	"laxbreak":  true, // Allow line breaking before && or ||
+	"-W087":     true, // Allow use of debugger; statement
+	"smarttabs": true,
+
+	"camelcase" : true,
+	"curly": true,
+	"eqeqeq": true,
+	"forin": true,
+	"freeze" : true,
+	"immed": true,
+	"indent": 4,
+	"latedef" : true,
+	"newcap" : true,
+	"noempty" : true,
+	"nonbsp" : true,
+	"nonew" : true,
+	"plusplus": true,
+	"quotmark" : "single",
+	"undef": true,
+	"unused": true,
+	"strict": true,
+	"trailing" : true,
+	"maxparams": 3,
+	"maxdepth": 5,
+	"maxstatements": 25,
+	"maxcomplexity": 10,
+	"maxlen" : 120,
+	"noarg": true,
+
+	"boss" : false,
+	"debug": false,
+	"evil": true,
+	"sub": false,
+	"laxbreak": false,
+
+	"browser" : true,
+	"devel": false,
+
+	"nomen": false,
+	"onevar": true,
+	"white": false
+}
