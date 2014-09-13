@@ -1937,7 +1937,7 @@
 
  			self.loadQueue = data;
 
-			self._loadNextImage();
+			self._loadNextImage(true);
 		},
 		_onLoadingComplete:function(fData) {
 			var self = this;
@@ -1999,7 +1999,7 @@
 				}
 		    };
 		},
-		_loadNextImage:function() {
+		_loadNextImage:function(updateText) {
 			var self = this;
 			var currQueueItem = self.loadQueue[0];
 			if(!currQueueItem) {
@@ -2010,8 +2010,7 @@
 			if(currItem) {
 				var currBlock = currQueueItem.block,
 					currImg = currBlock.find('img').eq(0),
-					currImgDesc = currBlock.find('#img-desc').eq(0),
-
+					currImgDesc = $('#img-desc').eq(0),
 					path = currItem.find('a').attr('href'),
 					bWidth = currItem.attr('data-img-width'),
 					bHeight = currItem.attr('data-img-height'),
@@ -2046,6 +2045,14 @@
 
 
 
+				if(updateText){
+					if (desc.length > 0) {
+					 	currImgDesc.find('.img-content').text(desc);
+						currImgDesc.show();
+					}else{
+						currImgDesc.hide();
+					}
+				}
 
 				if(currBlockPath === path) {
 				 	if(!currBlock.hasClass('loading')) {
@@ -2069,13 +2076,7 @@
 
 
 					if (!hasDesc) {
-						currImgDesc.appendTo(currBlock.find('.block-inside'));
-					}
-
-					if (desc.length > 0) {
-						currImgDesc.show();
-					}else{
-						currImgDesc.hide();
+						currImgDesc.appendTo($('#main-slider'));
 					}
 					if (!hasImage) {
 						currImg.appendTo(currBlock.find('.block-inside'));
