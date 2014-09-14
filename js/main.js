@@ -1,7 +1,7 @@
 // All theme js logic, except slider code
 jQuery(document).ready(function($) {
 	var TouchfolioManager = (function() {
-	    var body = $('body'),
+		var body = $('body'),
 			jqWindow = $(window),
 			isGalleryPage,
 			nW,
@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
 			isCollapsed = false,
 			isMenuAnimating = false;
 
-	    init = function() {
+		init = function() {
 			if(body.hasClass('ds-gallery-page')) {
 				isGalleryPage = true;
 				$('.footer-copy').css('display', 'none');
@@ -27,19 +27,19 @@ jQuery(document).ready(function($) {
 			if(browserWidth >= maxW) {
 				_sidebar.appendTo(_headerSideMenu);
 			}
-	    	
-	        if(!isLowIE) {
+
+			if(!isLowIE) {
 				onResize();
 			}
-			
+
 			if(isGalleryPage) {
-		 		$("#main-slider").eq(0).twoDimSlider({appendGalleriesToMenu:true});
+				$("#main-slider").eq(0).twoDimSlider({appendGalleriesToMenu:true});
 			}
-			
+
 			if(!isLowIE) {
-				jqWindow.bind('resize', function(e) {	
+				jqWindow.bind('resize', function(e) {
 					onResize(e);
-				});	
+				});
 			}
 
 			if(browserWidth < maxW) {
@@ -47,26 +47,26 @@ jQuery(document).ready(function($) {
 			}
 
 			if(body.hasClass('page-template-ds-gallery-masonry-template-php')) {
-				$('.albums-thumbnails').masonry({ 
-					itemSelector : '.project-thumb', 
+				$('.albums-thumbnails').masonry({
+					itemSelector : '.project-thumb',
 					gutterWidth: 8,
 					isResizable: true,
 					isFitWidth: true,
 					isAnimated: false
-				}); 
-   			}
-	    },
-	    displayMobileMenu = function() {
+				});
+			}
+		},
+		displayMobileMenu = function() {
 			if(mobileMenu) {
 				mobileMenu.css('display', 'block').removeClass('menu-close-button');
 				_menusContainer.hide().css({ height : 0 });
 				return;
-			} 
+			}
 
 			var headerHeight = _headerSideMenu.height();
 			mobileMenu = $('<a class="menu-button"><i class="menu-button-icon"></i>menu</a>');
 			$('.top-logo-group').after(mobileMenu);
-			
+
 			setTimeout(function() {
 				var height = _menusContainer.height();
 				_menusContainer.hide().css({ height : 0 , top: _headerSideMenu.height()});
@@ -76,13 +76,13 @@ jQuery(document).ready(function($) {
 					if(isMenuAnimating) {
 						return false;
 					}
-					
+
 					mobileMenu.toggleClass('menu-close-button');
 
 					if ( _menusContainer.is(':visible') ) {
 							_menusContainer.animate({ height: 0 }, { duration: 300, complete: function () {
-					   		_menusContainer.hide();
-						} 
+							_menusContainer.hide();
+						}
 					});
 					} else {
 						_menusContainer.show().animate({ height : height }, { duration: 300 });
@@ -93,18 +93,18 @@ jQuery(document).ready(function($) {
 			}, 0);
 
 		},
-	    hideMobileMenu = function() {
+		hideMobileMenu = function() {
 			if(mobileMenu) {
 				mobileMenu.css('display', 'none');
 				_menusContainer.css({
 					'display': 'block',
 					'height':'auto'
 				});
-			} 
+			}
 		},
 
-	    // Events
-	    onResize = function(e) {
+		// Events
+		onResize = function(e) {
 			nW = jqWindow.width();
 			nH = jqWindow.height();
 
@@ -124,7 +124,7 @@ jQuery(document).ready(function($) {
 							body.removeClass('collapsed-gallery-page');
 							_headerSideMenu.removeClass('collapsed-gallery-page-menu');
 						}
-						
+
 						_headerSideMenu.removeClass('header-opened-menu');
 						isCollapsed = false;
 					}
@@ -148,8 +148,8 @@ jQuery(document).ready(function($) {
 					}
 				}
 			}
-	    };
-	    return { init: init };
+		};
+		return { init: init };
 	})();
 	TouchfolioManager.init();
 });
@@ -171,9 +171,9 @@ jQuery.extend( jQuery.easing, {
 		return -c/2 * ((t-=2)*t*t*t - 2) + b;
 	},
 	easeInOutCirc: function (x, t, b, c, d) {
-        if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
-        return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
-    }
+		if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
+		return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
+	}
 });
 
 
@@ -184,46 +184,46 @@ jQuery.extend( jQuery.easing, {
 (function(w){
 	if( !( /iPhone|iPad|iPod/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) ){
 		return;
-	} 
-    var doc = w.document;
+	}
+	var doc = w.document;
 
-    if( !doc.querySelector ){ return; }
+	if( !doc.querySelector ){ return; }
 
-    var meta = doc.querySelector( "meta[name=viewport]" ),
-        initialContent = meta && meta.getAttribute( "content" ),
-        disabledZoom = initialContent + ",maximum-scale=1",
-        enabledZoom = initialContent + ",maximum-scale=10",
-        enabled = true,
+	var meta = doc.querySelector( "meta[name=viewport]" ),
+		initialContent = meta && meta.getAttribute( "content" ),
+		disabledZoom = initialContent + ",maximum-scale=1",
+		enabledZoom = initialContent + ",maximum-scale=10",
+		enabled = true,
 		x, y, z, aig;
 
-    if( !meta ){ return; }
+	if( !meta ){ return; }
 
-    function restoreZoom(){
-        meta.setAttribute( "content", enabledZoom );
-        enabled = true;
-    }
+	function restoreZoom(){
+		meta.setAttribute( "content", enabledZoom );
+		enabled = true;
+	}
 
-    function disableZoom(){
-        meta.setAttribute( "content", disabledZoom );
-        enabled = false;
-    }
+	function disableZoom(){
+		meta.setAttribute( "content", disabledZoom );
+		enabled = false;
+	}
 
-    function checkTilt( e ){
+	function checkTilt( e ){
 		aig = e.accelerationIncludingGravity;
 		x = Math.abs( aig.x );
 		y = Math.abs( aig.y );
 		z = Math.abs( aig.z );
 
 		// If portrait orientation and in one of the danger zones
-        if( !w.orientation && ( x > 7 || ( ( z > 6 && y < 8 || z < 8 && y > 6 ) && x > 5 ) ) ){
+		if( !w.orientation && ( x > 7 || ( ( z > 6 && y < 8 || z < 8 && y > 6 ) && x > 5 ) ) ){
 			if( enabled ){
 				disableZoom();
-			}        	
-        }
+			}
+		}
 		else if( !enabled ){
 			restoreZoom();
-        }
-    }
+		}
+	}
 
 	w.addEventListener( "orientationchange", restoreZoom, false );
 	w.addEventListener( "devicemotion", checkTilt, false );
@@ -233,7 +233,7 @@ jQuery.extend( jQuery.easing, {
 /*
  * jQuery hashchange event - v1.3 - 7/21/2010
  * http://benalman.com/projects/jquery-hashchange-plugin/
- * 
+ *
  * Copyright (c) 2010 "Cowboy" Ben Alman
  * Dual licensed under the MIT and GPL licenses.
  * http://benalman.com/about/license/
