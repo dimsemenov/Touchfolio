@@ -2015,6 +2015,7 @@
 					path = currItem.find('a').attr('href'),
 					bWidth = currItem.attr('data-img-width'),
 					bHeight = currItem.attr('data-img-height'),
+					title = currItem.attr('data-img-title'),
 					desc = currItem.attr('data-img-desc');
 
 
@@ -2029,7 +2030,7 @@
 
 				if(currImgDesc.length <= 0) {
 					hasDesc = false;
-					currImgDesc = $('<div id="img-desc" class="img-desc-block text-block"><div class="info-container"><div class="img-content">'+desc+'</div></div></div>');
+					currImgDesc = $('<div id="img-desc" class="img-desc-block text-block"><div class="info-container"><h3 class="img-title"></h3><div class="img-content"></div></div></div>');
 				} else {
 					hasDesc = true;
 				}
@@ -2067,16 +2068,18 @@
 									.bind('load.tds', self._onLoadingComplete({type:'loaded', loadDataItem:currQueueItem, block:currBlock, img:currImg }))
 									.bind('error.tds', self._onLoadingComplete({type:'error', loadDataItem:currQueueItem, block:currBlock, img:currImg })).attr({'src': path, 'alt':currItem.find('a').text()});
 
+					if (desc.length > 0 || title.length > 0) {
+					 	currImgDesc.find('.img-title').text(title);
+					 	currImgDesc.find('.img-content').text(desc);
+						currImgDesc.show();
+					}else{
+						currImgDesc.hide();
+					}
 
 					if (!hasDesc) {
 						currImgDesc.appendTo(currBlock.find('.block-inside'));
 					}
 
-					if (desc.length > 0) {
-						currImgDesc.show();
-					}else{
-						currImgDesc.hide();
-					}
 					if (!hasImage) {
 						currImg.appendTo(currBlock.find('.block-inside'));
 					}

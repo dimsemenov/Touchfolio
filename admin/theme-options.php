@@ -174,6 +174,18 @@ $of_options[] = array( "name" => __("Auto-open project description", 'dsframewor
 					"std" => "1",
 					"type" => "checkbox");
 
+$of_options[] = array( "name" => __("Show image title", 'dsframework'),
+					"desc" => __("Show the media title on top-left of gallery area."),
+					"id" => "show_image_title",
+					"std" => "1",
+					"type" => "checkbox");
+
+$of_options[] = array( "name" => __("Show image description", 'dsframework'),
+					"desc" => __("Show the media description on top-left of gallery area."),
+					"id" => "show_image_desc",
+					"std" => "1",
+					"type" => "checkbox");
+
 $of_options[] = array( "name" => __("Show share buttons in project description", 'dsframework'),
 					"desc" => __("Show social media share buttons in the project description box."),
 					"id" => "project_desc_share_buttons",
@@ -191,7 +203,7 @@ $of_options[] = array( "name" => __("Menu indented", 'dsframework'),
 					"id" => "menu_indented",
 					"std" => "1",
 					"type" => "checkbox");
-
+					
 	}
 }
 ?>
