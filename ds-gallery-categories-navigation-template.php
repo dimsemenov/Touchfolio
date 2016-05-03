@@ -13,7 +13,7 @@
 <?php get_header(); ?>
 <div id="primary" class="site-content">
 	<div id="content" role="main">
-		<?
+		<?php
 		$permalink = get_permalink();
 		$post_meta = get_post_custom();
 		$visible_gallery_categories = array();
