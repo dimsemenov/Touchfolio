@@ -51,9 +51,9 @@ add_action('admin_init','optionsframework_admin_init');
 
 function optionsframework_add_admin() {
 
-   // $of_page = add_menu_page('themes.php', THEMENAME, 'Theme Options', 'edit_theme_options', 'optionsframework','optionsframework_options_page'); // Default
+   // $of_page = add_menu_page( string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', string $icon_url = '', int $position = null ); // Default
 
-    $of_page = add_object_page('Touchfolio', 'Touchfolio', 'edit_theme_options', 'optionsframework', 'optionsframework_options_page', ADMIN_DIR .'images/rabbit.png' );
+    $of_page = add_menu_page('Touchfolio', 'Touchfolio', 'edit_theme_options', 'optionsframework', 'optionsframework_options_page', ADMIN_DIR .'images/rabbit.png');
 
 	// Add framework functionaily to the head individually
 	add_action("admin_print_scripts-$of_page", 'of_load_only');

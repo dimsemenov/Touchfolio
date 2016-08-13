@@ -500,11 +500,11 @@
 
 		if(!self.hasTouch) {
 			self.sliderRoot.bind('mousewheel', function(e, delta, deltaX, deltaY) {
-    			if(delta < 0) {
-    				self.next();
-    			} else if(delta > 0) {
-    				self.prev();
-    			}
+				if(delta < 0) {
+					self.next();
+				} else if(delta > 0) {
+					self.prev();
+				}
 			});
 		}
 
@@ -657,8 +657,8 @@
 			}
 
 			self._hashTimeout = setTimeout(function() { // ensures this happens in the next event loop
-		    	self._unblockHashChange();
-		    }, 60);
+				self._unblockHashChange();
+			}, 60);
 		},
 		_doBackAndForthAnim:function(type) {
 			var self = this,
@@ -1076,7 +1076,7 @@
 			self.changedX += Math.abs(deltaX);
 			self.changedY += Math.abs(deltaY);
 			if (self.changedY < 10 && self.changedX < 7) {
-			 	return;
+				return;
 			}
 
 			var newX = self.x + deltaX,
@@ -1125,7 +1125,7 @@
 
 				self._setPosition(newY, 'y');
 				if (timeStamp - self._startTime > 200) {
-			 		self._startTime = timeStamp;
+					self._startTime = timeStamp;
 					self._accelerationY = point.pageY;
 				}
 			} else {
@@ -1144,7 +1144,7 @@
 
 				self._setPosition(newX, 'x');
 				if (timeStamp - self._startTime > 200) {
-			 		self._startTime = timeStamp;
+					self._startTime = timeStamp;
 					self._accelerationX = point.pageX;
 				}
 			}
@@ -1230,17 +1230,17 @@
 			var snapDist = 0;
 			if(self._isVerticalNav) {
 				var axisSmall = 'y',
-				    pPos = point.pageY,
-				    sPos = self.startY,
-				    axPos = self._accelerationY,
-				    axCurrItem = self.currAlbumId,
-				    axNumItems = self.numAlbums,
-				    dir = self.verDirection,
-				    sliderSize = self.sliderHeight,
-				    axMainItemId = self._currentMainAlbumBlockId,
-				    loop = self._loopAlbums,
-				    changeHash = true,
-				    distOffset = 50;
+					pPos = point.pageY,
+					sPos = self.startY,
+					axPos = self._accelerationY,
+					axCurrItem = self.currAlbumId,
+					axNumItems = self.numAlbums,
+					dir = self.verDirection,
+					sliderSize = self.sliderHeight,
+					axMainItemId = self._currentMainAlbumBlockId,
+					loop = self._loopAlbums,
+					changeHash = true,
+					distOffset = 50;
 			} else {
 				var axisSmall = 'x',
 					pPos = point.pageX,
@@ -1369,7 +1369,7 @@
 								self._leftBlock.css('left', (-self._currentMainBlockId * 100 - 100) + '%');
 								self._addItemToLoadQueue(loadArr, self._leftBlock, self.currAlbumId, self.currItemId - 1);
 							}
-		 					self._topBlock.css('left', (-self._currentMainBlockId * 100) + '%');
+							self._topBlock.css('left', (-self._currentMainBlockId * 100) + '%');
 							self._bottomBlock.css('left', (-self._currentMainBlockId * 100) + '%');
 
 							album = self._getAlbum(self.currAlbumId);
@@ -1544,12 +1544,12 @@
 		updateSliderSize:function() {
 			var self = this,
 				winWidth = window.innerWidth || document.body.clientWidth,
- 				winHeight = window.innerHeight || document.body.clientHeight,
- 				wrapWidth = self._slidesWrapper.width(),
- 				wrapHeight = self._slidesWrapper.height();
+				winHeight = window.innerHeight || document.body.clientHeight,
+				wrapWidth = self._slidesWrapper.width(),
+				wrapHeight = self._slidesWrapper.height();
 
- 			// resize if something changed
- 			if(wrapWidth != self.sliderWidth || wrapHeight != self.sliderHeight) {
+			// resize if something changed
+			if(wrapWidth != self.sliderWidth || wrapHeight != self.sliderHeight) {
 
 				self.sliderWidth = wrapWidth;
 				self.sliderHeight = wrapHeight;
@@ -1805,7 +1805,7 @@
 					if(self._prevImageArr.hasClass('prev-album-arrow')) {
 						self._prevImageArr.removeClass('prev-album-arrow').find('.info-text').removeClass('info-text-visible');
 					}
- 				}
+				}
 				if(self.currItemId >= self.currAlbumNumItems - 1) {
 					if(self.currAlbumId < self.numAlbums - 1) {
 						if(!self._nextImageArr.hasClass('next-album-arrow')) {
@@ -1828,8 +1828,8 @@
 
 						//self._nextImageArr.find('.tooltip-text').text(self._wpVars.nextImage);
 					}
- 				}
- 			// 	if(self.currItemId <= 0 || self.currItemId >= this.currAlbumNumItems - 1) {
+				}
+			// 	if(self.currItemId <= 0 || self.currItemId >= this.currAlbumNumItems - 1) {
 			// 		if(self.currItemId <= 0) {
 			// 			self._prevImageArr =
 			// 			// self._prevImageArr.addClass('disabled-arrow');
@@ -1935,23 +1935,23 @@
 				self.isLoading = true;
 			}
 
- 			self.loadQueue = data;
+			self.loadQueue = data;
 
-			self._loadNextImage();
+			self._loadNextImage(true);
 		},
 		_onLoadingComplete:function(fData) {
 			var self = this;
-		    return function() {
-		    	var currImg = fData.img,
-		    		clickedItemData = fData.loadDataItem.item.data(),
-		    		blockInside = fData.block.find('.block-inside'),
-		    		hasVideo = Boolean(clickedItemData.videoUrl !== undefined);
+			return function() {
+				var currImg = fData.img,
+					clickedItemData = fData.loadDataItem.item.data(),
+					blockInside = fData.block.find('.block-inside'),
+					hasVideo = Boolean(clickedItemData.videoUrl !== undefined);
 
-		    	if(!currImg.data('blocked-by-loop')) {
-	    			currImg.css({
-	    				visibility:  'visible'
-	    			});
-	    		}
+				if(!currImg.data('blocked-by-loop')) {
+					currImg.css({
+						visibility:  'visible'
+					});
+				}
 
 
 				if(hasVideo) {
@@ -1959,25 +1959,25 @@
 					if(!blockInside.find('.play-button-container').length > 0) {
 						blockInside.append('<a class="play-button-container"><span class="play-button"><i class="play-icons-wrap"><u class="play-button-icon"></u><u class="play-video-loading-icon"></u></i></snan></a>');
 
-				    	blockInside.find('.play-button-container').bind('click', function(e) {
-				    		if(!self.moved) {
+						blockInside.find('.play-button-container').bind('click', function(e) {
+							if(!self.moved) {
 								e.preventDefault();
 								e.stopImmediatePropagation();
 								self._controlsVisible = true;
-				    			self._showVideo(fData, blockInside);
-				    		} else {
-				    			return false;
-				    		}
-				    	});
+								self._showVideo(fData, blockInside);
+							} else {
+								return false;
+							}
+						});
 					}
 
-		    	} else {
-		    		if(blockInside.find('.play-button-container').length > 0) {
-		    			blockInside.find('img').css('cursor', 'inherit').unbind('click');
-		    			blockInside.find('.play-button-container').unbind('click');
-		    			blockInside.find('.play-button-container').remove();
-		    		}
-		    	}
+				} else {
+					if(blockInside.find('.play-button-container').length > 0) {
+						blockInside.find('img').css('cursor', 'inherit').unbind('click');
+						blockInside.find('.play-button-container').unbind('click');
+						blockInside.find('.play-button-container').remove();
+					}
+				}
 				fData.block.removeClass('loading');
 				fData.block.find('.preloader-container').remove();
 
@@ -1997,9 +1997,9 @@
 				} else {
 					self.isLoading = false;
 				}
-		    };
+			};
 		},
-		_loadNextImage:function() {
+		_loadNextImage:function(updateText) {
 			var self = this;
 			var currQueueItem = self.loadQueue[0];
 			if(!currQueueItem) {
@@ -2010,8 +2010,7 @@
 			if(currItem) {
 				var currBlock = currQueueItem.block,
 					currImg = currBlock.find('img').eq(0),
-					currImgDesc = currBlock.find('#img-desc').eq(0),
-
+					currImgDesc = $('#img-desc').eq(0),
 					path = currItem.find('a').attr('href'),
 					bWidth = currItem.attr('data-img-width'),
 					bHeight = currItem.attr('data-img-height'),
@@ -2046,16 +2045,24 @@
 
 
 
+				if(updateText){
+					if (desc.length > 0) {
+						currImgDesc.find('.img-content').text(desc);
+						currImgDesc.show();
+					}else{
+						currImgDesc.hide();
+					}
+				}
 
 				if(currBlockPath === path) {
-				 	if(!currBlock.hasClass('loading')) {
-				 		if(self.loadQueue.length > 1) {
+					if(!currBlock.hasClass('loading')) {
+						if(self.loadQueue.length > 1) {
 							self.loadQueue.shift();
 							self._loadNextImage();
 						} else {
 							self.isLoading = false;
 						}
-				 	}
+					}
 					return;
 				}
 
@@ -2069,13 +2076,7 @@
 
 
 					if (!hasDesc) {
-						currImgDesc.appendTo(currBlock.find('.block-inside'));
-					}
-
-					if (desc.length > 0) {
-						currImgDesc.show();
-					}else{
-						currImgDesc.hide();
+						currImgDesc.appendTo($('#main-slider'));
 					}
 					if (!hasImage) {
 						currImg.appendTo(currBlock.find('.block-inside'));
@@ -2373,13 +2374,13 @@
 			}
 		},
 		_getYoutubeVideoId:function(url) {
-		    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-		    var match = url.match(regExp);
-		    if (match && match[7].length==11){
-		        return match[7];
-		    } else {
-		        return false;
-		    }
+			var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+			var match = url.match(regExp);
+			if (match && match[7].length==11){
+				return match[7];
+			} else {
+				return false;
+			}
 		},
 		_showAlbumInfo:function() {
 
@@ -2427,7 +2428,7 @@
 					});
 
 					if (typeof(FB) != 'undefined' && FB != null ) {
-					    FB.XFBML.parse( self._albumInfoBlock.get(0) );
+						FB.XFBML.parse( self._albumInfoBlock.get(0) );
 					}
 
 					self._albumInfoBlock.data('curr-album-id', self.currAlbumId);
@@ -2465,20 +2466,20 @@
 				self._showAlbumInfo();
 			}
 
- 		},
- 		_updateMenuSize:function() {
- 			var self = this,
- 				winWidth = window.innerWidth || document.body.clientWidth;
- 			if(self._isMenuVisible) {
- 				self._isMenuCollapsed = true;
- 				if(winWidth > 600) {
+		},
+		_updateMenuSize:function() {
+			var self = this,
+				winWidth = window.innerWidth || document.body.clientWidth;
+			if(self._isMenuVisible) {
+				self._isMenuCollapsed = true;
+				if(winWidth > 600) {
 					self._headerSideMenu.css('width', '50%');
 				} else {
 					self._headerSideMenu.css('width', '100%');
 				}
- 			}
- 		},
- 		_getQueryParameters:function() {
+			}
+		},
+		_getQueryParameters:function() {
 			var query = window.location.href.split('?')[1];
 
 			//query won't be set if ? isn't in the URL
@@ -2589,7 +2590,7 @@
 
 
  $(document).bind("idle.idleTimer", function(){
-    // function you want to fire when the user goes idle
+	// function you want to fire when the user goes idle
  });
 
 
@@ -2638,7 +2639,7 @@
 
 $.idleTimer = function(newTimeout, elem, opts){
 
-    // defaults that are to be stored as instance props on the elem
+	// defaults that are to be stored as instance props on the elem
 
 	opts = $.extend({
 		startImmediately: true, //starts a timeout as soon as the timer is set up
@@ -2649,141 +2650,141 @@ $.idleTimer = function(newTimeout, elem, opts){
 	}, opts);
 
 
-    elem = elem || document;
+	elem = elem || document;
 
-    /* (intentionally not documented)
-     * Toggles the idle state and fires an appropriate event.
-     * @return {void}
-     */
-    var toggleIdleState = function(myelem){
+	/* (intentionally not documented)
+	 * Toggles the idle state and fires an appropriate event.
+	 * @return {void}
+	 */
+	var toggleIdleState = function(myelem){
 
-        // curse you, mozilla setTimeout lateness bug!
-        if (typeof myelem === 'number'){
-            myelem = undefined;
-        }
+		// curse you, mozilla setTimeout lateness bug!
+		if (typeof myelem === 'number'){
+			myelem = undefined;
+		}
 
-        var obj = $.data(myelem || elem,'idleTimerObj');
+		var obj = $.data(myelem || elem,'idleTimerObj');
 
-        //toggle the state
-        obj.idle = !obj.idle;
+		//toggle the state
+		obj.idle = !obj.idle;
 
-        // reset timeout
-        var elapsed = (+new Date()) - obj.olddate;
-        obj.olddate = +new Date();
+		// reset timeout
+		var elapsed = (+new Date()) - obj.olddate;
+		obj.olddate = +new Date();
 
-        // handle Chrome always triggering idle after js alert or comfirm popup
-        if (obj.idle && (elapsed < opts.timeout)) {
-                obj.idle = false;
-                clearTimeout($.idleTimer.tId);
-                if (opts.enabled)
-                  $.idleTimer.tId = setTimeout(toggleIdleState, opts.timeout);
-                return;
-        }
+		// handle Chrome always triggering idle after js alert or comfirm popup
+		if (obj.idle && (elapsed < opts.timeout)) {
+				obj.idle = false;
+				clearTimeout($.idleTimer.tId);
+				if (opts.enabled)
+				  $.idleTimer.tId = setTimeout(toggleIdleState, opts.timeout);
+				return;
+		}
 
-        //fire appropriate event
+		//fire appropriate event
 
-        // create a custom event, but first, store the new state on the element
-        // and then append that string to a namespace
-        var event = jQuery.Event( $.data(elem,'idleTimer', obj.idle ? "idle" : "active" )  + '.idleTimer'   );
+		// create a custom event, but first, store the new state on the element
+		// and then append that string to a namespace
+		var event = jQuery.Event( $.data(elem,'idleTimer', obj.idle ? "idle" : "active" )  + '.idleTimer'   );
 
-        // we do want this to bubble, at least as a temporary fix for jQuery 1.7
-        // event.stopPropagation();
-        $(elem).trigger(event);
-    },
+		// we do want this to bubble, at least as a temporary fix for jQuery 1.7
+		// event.stopPropagation();
+		$(elem).trigger(event);
+	},
 
-    /**
-     * Stops the idle timer. This removes appropriate event handlers
-     * and cancels any pending timeouts.
-     * @return {void}
-     * @method stop
-     * @static
-     */
-    stop = function(elem){
+	/**
+	 * Stops the idle timer. This removes appropriate event handlers
+	 * and cancels any pending timeouts.
+	 * @return {void}
+	 * @method stop
+	 * @static
+	 */
+	stop = function(elem){
 
-        var obj = $.data(elem,'idleTimerObj') || {};
+		var obj = $.data(elem,'idleTimerObj') || {};
 
-        //set to disabled
-        obj.enabled = false;
+		//set to disabled
+		obj.enabled = false;
 
-        //clear any pending timeouts
-        clearTimeout(obj.tId);
+		//clear any pending timeouts
+		clearTimeout(obj.tId);
 
-        //detach the event handlers
-        $(elem).off('.idleTimer');
-    },
-
-
-    /* (intentionally not documented)
-     * Handles a user event indicating that the user isn't idle.
-     * @param {Event} event A DOM2-normalized event object.
-     * @return {void}
-     */
-    handleUserEvent = function(e){
-        var obj = $.data(this,'idleTimerObj');
-
-        //clear any existing timeout
-        clearTimeout(obj.tId);
+		//detach the event handlers
+		$(elem).off('.idleTimer');
+	},
 
 
+	/* (intentionally not documented)
+	 * Handles a user event indicating that the user isn't idle.
+	 * @param {Event} event A DOM2-normalized event object.
+	 * @return {void}
+	 */
+	handleUserEvent = function(e){
+		var obj = $.data(this,'idleTimerObj');
 
-        //if the idle timer is enabled
-        if (obj.enabled){
-
-
-            //if it's idle, that means the user is no longer idle
-            if (obj.idle){
-                toggleIdleState(this);
-            }
-
-            //set a new timeout
-            obj.tId = setTimeout(toggleIdleState, obj.timeout);
-
-        }
-     };
+		//clear any existing timeout
+		clearTimeout(obj.tId);
 
 
-    /**
-     * Starts the idle timer. This adds appropriate event handlers
-     * and starts the first timeout.
-     * @param {int} newTimeout (Optional) A new value for the timeout period in ms.
-     * @return {void}
-     * @method $.idleTimer
-     * @static
-     */
+
+		//if the idle timer is enabled
+		if (obj.enabled){
 
 
-    var obj = $.data(elem,'idleTimerObj') || {};
+			//if it's idle, that means the user is no longer idle
+			if (obj.idle){
+				toggleIdleState(this);
+			}
 
-    obj.olddate = obj.olddate || +new Date();
+			//set a new timeout
+			obj.tId = setTimeout(toggleIdleState, obj.timeout);
 
-    //assign a new timeout if necessary
-    if (typeof newTimeout === "number"){
-        opts.timeout = newTimeout;
-    } else if (newTimeout === 'destroy') {
-        stop(elem);
-        return this;
-    } else if (newTimeout === 'getElapsedTime'){
-        return (+new Date()) - obj.olddate;
-    }
-
-    //assign appropriate event handlers
-    $(elem).on($.trim((opts.events+' ').split(' ').join('.idleTimer ')),handleUserEvent);
+		}
+	 };
 
 
-    obj.idle    = opts.idle;
-    obj.enabled = opts.enabled;
-    obj.timeout = opts.timeout;
+	/**
+	 * Starts the idle timer. This adds appropriate event handlers
+	 * and starts the first timeout.
+	 * @param {int} newTimeout (Optional) A new value for the timeout period in ms.
+	 * @return {void}
+	 * @method $.idleTimer
+	 * @static
+	 */
 
-    //set a timeout to toggle state. May wish to omit this in some situations
-	if (opts.startImmediately) {
-	    obj.tId = setTimeout(toggleIdleState, obj.timeout);
+
+	var obj = $.data(elem,'idleTimerObj') || {};
+
+	obj.olddate = obj.olddate || +new Date();
+
+	//assign a new timeout if necessary
+	if (typeof newTimeout === "number"){
+		opts.timeout = newTimeout;
+	} else if (newTimeout === 'destroy') {
+		stop(elem);
+		return this;
+	} else if (newTimeout === 'getElapsedTime'){
+		return (+new Date()) - obj.olddate;
 	}
 
-    // assume the user is active for the first x seconds.
-    $.data(elem,'idleTimer',"active");
+	//assign appropriate event handlers
+	$(elem).on($.trim((opts.events+' ').split(' ').join('.idleTimer ')),handleUserEvent);
 
-    // store our instance on the object
-    $.data(elem,'idleTimerObj',obj);
+
+	obj.idle    = opts.idle;
+	obj.enabled = opts.enabled;
+	obj.timeout = opts.timeout;
+
+	//set a timeout to toggle state. May wish to omit this in some situations
+	if (opts.startImmediately) {
+		obj.tId = setTimeout(toggleIdleState, obj.timeout);
+	}
+
+	// assume the user is active for the first x seconds.
+	$.data(elem,'idleTimer',"active");
+
+	// store our instance on the object
+	$.data(elem,'idleTimerObj',obj);
 
 
 
@@ -2797,11 +2798,11 @@ $.fn.idleTimer = function(newTimeout,opts){
 		opts = {};
 	}
 
-    if(this[0]){
-        $.idleTimer(newTimeout,this[0],opts);
-    }
+	if(this[0]){
+		$.idleTimer(newTimeout,this[0],opts);
+	}
 
-    return this;
+	return this;
 };
 
 

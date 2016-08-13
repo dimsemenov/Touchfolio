@@ -6,10 +6,10 @@
 // 	2. Video-related things
 // 	3. Wrappers, image containers e.t.c
 // 	4. Album name + count (1 of n)
-// 	5. Collapsed slider styles 
+// 	5. Collapsed slider styles
 //  6. Album info block (share, close project button)
 //  7. Specific gallery page styles
-//  
+//
 ////////////////////////////////////////////////////////////////////
 
 
@@ -78,7 +78,7 @@
 		overflow: hidden;
 		.transition(opacity, .3s);
 
-		
+
 		.play-button-icon {
 			width: 64px;
 			height: 64px;
@@ -116,7 +116,7 @@
 		background: @sidebar-background;
 		display: block;
 	}
-	
+
 	.video-overlay {
 		position: absolute;
 		left: 0;
@@ -145,8 +145,8 @@
 			background: @sidebar-background;
 			display: block;
 			font-size: @font-small;
-			
-			
+
+
 		}
 	}
 	.close-button {
@@ -188,7 +188,7 @@
 		z-index: 20;
 		padding: 0;
 
-		// cursor: move; 
+		// cursor: move;
 		// cursor: -webkit-grab;
 		// cursor: -moz-grab;
 		// cursor: -o-grab;
@@ -212,7 +212,7 @@
 		height: 100%;
 		overflow: hidden;
 		-o-transform-origin: 0;
-		
+
 		img.blocked-by-loop {
 			visibility: hidden !important;
 		}
@@ -223,7 +223,7 @@
 		top: 0;
 		right: 0;
 		bottom: 0;
-		margin: 0; 
+		margin: 0;
 		overflow: hidden;
 	}
 
@@ -251,7 +251,7 @@
 
 	////////////////////////////////////////////
 	//
-	// 4 Arrows navigation 
+	// 4 Arrows navigation
 	//
 	////////////////////////////////////////////
 
@@ -293,7 +293,7 @@
 		}
 	}
 	.arrow-right a {
-	
+
 		.info-text {
 
 			left: auto;
@@ -306,16 +306,16 @@
 	}
 
 
-	.arrow-left, 
+	.arrow-left,
 	.arrow-right {
 		position: absolute;
 		top: 50%;
-		
+
 		z-index: 25;
 		display: block;
 		width: 48px;
 		height: 48px;
-		
+
 		margin: 0;
 		.icon-bg {
 		//	margin: 16px;
@@ -325,8 +325,8 @@
 			position: relative;
 			margin-top: -24px;
 			cursor: pointer;
-			
-			
+
+
 
 			.icon {
 
@@ -356,14 +356,14 @@
 			}
 		}
 		&.prev-album-arrow .icon-bg .icon {
-			
+
 			background-position: -32px 0;
 		}
-		
+
 	}
 	.arrow-right {
 		right: @gallery-padding;
-		
+
 		.icon-bg {
 			.icon {
 				margin-left: 16px;
@@ -375,14 +375,14 @@
 			background-position: 0 0;
 		}
 	}
-	
-	
-	
+
+
+
 	////////////////////////////////////////////
 	//
 	// Album name + count (1 of n)
 	//
-	////////////////////////////////////////////		
+	////////////////////////////////////////////
 	.slider-album-indicator {
 		position: absolute;
 		z-index: 23;
@@ -413,10 +413,10 @@
 			text-shadow: 0 1px 1px rgba(0,0,0,.1);
 		}
 	}
-		
-		
-		
-	
+
+
+
+
 	////////////////////////////////////////////
 	//
 	// Collapsed slider styles
@@ -442,7 +442,7 @@
 			.item-count-indicator {
 				display: none;
 			}
-			.album-info-block { 
+			.album-info-block {
 				display: block;
 
 			}
@@ -453,9 +453,9 @@
 		}
 	}
 	.grab-cursor {
-		cursor:url(img/grab.png) 8 8, move; 
+		cursor:url(img/grab.png) 8 8, move;
 	}
-	.grabbing-cursor{ 
+	.grabbing-cursor{
 		cursor:url(img/grabbing.png) 8 8, move;
 	}
 
@@ -485,11 +485,11 @@
 	padding: 0;
 
 	background: @sidebar-background;
-	
-	right: 0;
+
+	right: 0px + @gallery-padding;
 	bottom: 24px + @gallery-padding;
 	max-width: 40em;
-	
+
 	color: @sidebar-text-color;
 
 	.bottom-bar {
@@ -521,11 +521,11 @@
 	padding: 0;
 
 	background: @sidebar-background;
-	
-	left: 0;
-	top: 0px + @gallery-padding;
+
+	left: 0px+ @gallery-padding;
+	top: 24px + @gallery-padding;
 	max-width: 65%;
-	
+
 	color: @sidebar-text-color;
 
 	.info-container {
@@ -651,7 +651,7 @@ body.ds-gallery-page {
 		}
 		&::-webkit-scrollbar-thumb {
 			background-color:fadeout(@menu-item-color, 80%);
- 		}
+		}
 		&::-webkit-scrollbar-thumb:hover {
 			background-color:fadeout(@menu-item-color, 70%);
 		}
@@ -715,5 +715,3 @@ body.ds-gallery-page {
 	// 	text-align: center;
 	// }
 }
-
-
