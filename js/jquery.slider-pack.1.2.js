@@ -1955,23 +1955,25 @@
 
 
 				if(hasVideo) {
-
+          // MODIFICATION FROM ORIGINAL CODE //
 					if(!blockInside.find('.play-button-container').length > 0) {
 						blockInside.append('<a class="play-button-container"><span class="play-button"><i class="play-icons-wrap"><u class="play-button-icon"></u><u class="play-video-loading-icon"></u></i></snan></a>');
+          }
 
-				    	blockInside.find('.play-button-container').bind('click', function(e) {
-				    		if(!self.moved) {
-								e.preventDefault();
-								e.stopImmediatePropagation();
-								self._controlsVisible = true;
-				    			self._showVideo(fData, blockInside);
-				    		} else {
-				    			return false;
-				    		}
-				    	});
-					}
+          blockInside.find('.play-button-container').unbind('click');
+				  blockInside.find('.play-button-container').bind('click', function(e) {
+				  	if(!self.moved) {
+						e.preventDefault();
+						e.stopImmediatePropagation();
+						self._controlsVisible = true;
+				  		self._showVideo(fData, blockInside);
+				  	} else {
+				  		return false;
+				  	}
+				  });
 
-		    	} else {
+          // END MODIFICATION //
+		    } else {
 		    		if(blockInside.find('.play-button-container').length > 0) {
 		    			blockInside.find('img').css('cursor', 'inherit').unbind('click');
 		    			blockInside.find('.play-button-container').unbind('click');
