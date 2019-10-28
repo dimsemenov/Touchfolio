@@ -1,10 +1,10 @@
 === WP-LESS ===
-Contributors: oncletom
+Contributors: fabrizim,oncletom
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=752034
 Tags: dev, theme, themes, toolkit, plugin-toolkit, less, lesscss, lessc, lessphp, productivity, style, stylesheet, api
-Requires at least: 2.8
-Tested up to: 3.3
-Stable tag: 1.4.2
+Requires at least: 3.2
+Tested up to: 4.3
+Stable tag: trunk
 
 Implementation of LESS (Leaner CSS) in order to make themes development easier.
 
@@ -22,15 +22,19 @@ Theme developers can even bundle the plugin without worrying about conflicts: ju
  * Accessors (inherit a value from a specific rule)
  * Functions (logic operations for dynamic results)
 
-The plugin lets you concentrate on what you need: coding CSS. Everything else is handled automatically, from cache management to user delivery.  
+The plugin lets you concentrate on what you need: coding CSS. Everything else is handled automatically, from cache management to user delivery.
 Seriously.
+
+= Documentation =
+
+Advanced topics on how to use the plugin API are [available on the Github project documentation](https://github.com/oncletom/wp-less/tree/master/doc).
 
 = Requirements =
 
 The sole requirement is to use WordPress API and LESS convention: the `.less` extension.
 
-**Minimal Requirements**: PHP 5.1.2 and WordPress 2.8.  
-**Relies on**: [LESSPHP 0.3.1](http://leafo.net/lessphp/), [plugin-toolkit](http://wordpress.org/extend/plugins/plugin-toolkit/).
+**Minimal Requirements**: PHP 5.3 and WordPress 3.2.
+**Relies on**: [Less.php](http://lessphp.gpeasy.com/), [plugin-toolkit](http://wordpress.org/extend/plugins/plugin-toolkit/).
 
 *Notice*: in case you'd like to drop the usage of this plugin, it's safe to do it. You will just need to convert back your stylesheets to CSS.
 
@@ -46,7 +50,99 @@ The sole requirement is to use WordPress API and LESS convention: the `.less` ex
  1. Unzip it in your plugin folder (by default, `wp-content/plugins`)
  1. Activate it through your WordPress plugins administration page
 
+== Upgrade Notice ==
+
+= 1.6.0 =
+
+Warning: this release has some breaking changes. If you the old selector expression syntax (eg. Bootstrap 2.3) then it’s recommended to use 0.3.9.
+
+ * Add support for ; as argument delimiter
+ * Add support for passing arguments by name to mixin
+ * Remove old selector expression syntax ("hello")
+ * Remove ability to skip arguments by repeating delimiter
+ * Add built in functions: sin, cos, tan, asin, acos, atan, pow, pi, mod, sqrt, extract
+ * Fix bug where @arguments was not getting values from ...
+ * Selector interpolation works inside of brackets in selector
+ * Fix bug when resolving mixin that has same name as enclosing class
+ * Duplicate properties are now removed from output
+
 == Changelog ==
+
+= Version 1.8.0 =
+
+ * feature: default less compiler is now [oyejorge/less.php](http://lessphp.gpeasy.com/) ([#90](https://github.com/oncletom/wp-less/pull/68))
+
+= Version 1.7.6 =
+
+ * info: updated vendored lessphp libraries versions (oyejorge/less.php@1.7.0.5)
+
+= Version 1.7.5 =
+
+ * feature: now works properly in the admin side ([#68](https://github.com/oncletom/wp-less/pull/68))
+
+= Version 1.7.4 =
+
+ * feature: favour composer autoload to manual PHP `require` ([#64](https://github.com/oncletom/wp-less/pull/64))
+
+= Version 1.7.3 =
+
+ * bug: fixed the LESS library loading ([#63](https://github.com/oncletom/wp-less/issues/63))
+ * doc: documented the new LESS library swapping
+
+= Version 1.7.0 =
+
+ * feature: ability to provide your own flavour of `lessphp` or `less.php` ([#53](https://github.com/oncletom/wp-less/pull/53))
+ * bug: fixed stylesheet directory computation ([#61](https://github.com/oncletom/wp-less/pull/61))
+ * bug: unlink exception during utpdated files cleanup ([#49](https://github.com/oncletom/wp-less/pull/49))
+ * style: code cleanup ([#56](https://github.com/oncletom/wp-less/pull/56), [#55](https://github.com/oncletom/wp-less/pull/55))
+
+= Version 1.6.0 =
+
+Read the UPGRADE NOTICE carefully as this release contains BC change. Hence the version bump to `1.6.0`.
+
+ * lessphp: updated to v0.4.0
+
+= Version 1.5.4 =
+
+ * bug: fixed stylesheet URL computation ([#38](https://github.com/oncletom/wp-less/pull/38))
+ * bug: fixed cache-hit miss after stylesheet garbage collection ([#40](https://github.com/oncletom/wp-less/pull/40))
+ * added a CONTRIBUTORS file
+
+= Version 1.5.3 =
+
+ * lessphp: updated to v0.3.9
+
+= Version 1.5.2 =
+
+ * bug: fixed garbage collector bug ([#28](https://github.com/oncletom/wp-less/pull/28))
+ * bug: fixed cachebusting URI generation in deep mode ([#29](https://github.com/oncletom/wp-less/pull/29))
+ * bug: fixed access to Plugin instance, matching the documentation ([#39](https://github.com/oncletom/wp-less/pull/39))
+
+= Version 1.5.1 =
+
+ * feature(beta): less stylesheets can be enqueued in `wp-admin`
+ * feature: added `WPLessConfiguration::getTtl` method to let you configure the delay of old-files cleanup
+ * bug: fixed automatic replacements with absolute and data uri ([#19](https://github.com/oncletom/wp-less/pull/19))
+ * bug: fixed garbage collector; was pruning active stylesheets even if too old (buggy with active cache) ([#20](https://github.com/oncletom/wp-less/pull/20))
+
+= Version 1.5 =
+
+Mostly issues related to `lessphp` 0.3.8 features.
+
+ * /!\ Leveraged PHP Minimum Version to 5.2.4 /!\ ([WordPress already asks you the same](http://wordpress.org/about/requirements/))
+ * [dev documentation available online](https://github.com/oncletom/wp-less/tree/master/doc)
+ * bug: stylesheets compilation is now processed on `wp_enqueue_scripts` ([prop of @RixTox](https://github.com/oncletom/wp-less/pull/18))
+ * feature: providing stylesheet and template directory uri variables (`@stylesheet_directory_uri` & `@template_directory_uri`) following WordPress convention
+ * feature: Pruning old compiled files [#15](https://github.com/oncletom/wp-less/pull/15)
+ * feature: Smarter LESS compilation (following @import file updates) [#13](https://github.com/oncletom/wp-less/pull/13)
+ * feature: Systematic LESS rebuild through configuration [#14](https://github.com/oncletom/wp-less/pull/14)
+ * improvement: Match lessphp variable API [#12](https://github.com/oncletom/wp-less/pull/12)
+
+= Version 1.4.3 =
+
+ * bug: fixed HTTPS/Networked Blog URL replacement ([#8](https://github.com/oncletom/wp-less/pull/8), [#9](https://github.com/oncletom/wp-less/pull/9))
+ * bug: fixed the `property of non-object in Plugin.class.php` bug
+ * lessphp: updated to 0.3.8 (compatible with lessjs 1.3)
 
 = Version 1.4.2 =
 
@@ -117,60 +213,19 @@ The sole requirement is to use WordPress API and LESS convention: the `.less` ex
 
 
 == Frequently Asked Questions ==
-= How do I transform a LESS file into CSS? =
-Consider this bit of code to automatically enqueue your stylesheet from your theme (or plugin):  
-`wp_enqueue_style('mytheme', get_bloginfo('template_directory').'/style.css', array(), '', 'screen, projection');`
 
-To make it process by WP-LESS, switch to this way:  
-`wp_enqueue_style('mytheme', get_bloginfo('template_directory').'/style.less', array(), '', 'screen, projection');`
+Lots of efforts have been done to write a [consistent documentation](https://github.com/oncletom/wp-less/tree/master/doc)
+to address issues you may encounter.
 
-You understood well: you just need to change the extension of the file.
-
-= And if I don't use the wp_enqueue_style method? =
-For the moment, it's the unique way to handle this.  
-Helpers will be provided soon to include LESS files in your templates in a fluent way.
-
-= What if a *.less file contains only pure CSS? =
-Nothing special. The LESS parser is fully compliant with CSS syntax.  
-It means nothing will be broken so don't worry.
-
-= I'm a themer and I don't want to ask my users to activate this plugin =
-It's a very good moto. Since the 1.1 release, there is a special bootstrap file: `bootstrap-for-theme.php`.  
-Everything is prepared and documented inside, with examples and hint.
-
-Just help yourself!
-
-= I want to inject custom variables =
-LESS PHP 0.3.0 introduced a native way to set variables from PHP.
-
-If you initialized the class by yourself, do it this way:
-`$WPLessPlugin->addVariable('@default_color', '#fff');`
-
-If you don't manage the plugin by yourself:
-`WPPluginToolkitPlugin::getInstance('WPLess')->addVariable($name, $value);`
-
-And if you want to do that from a theme, with less code:
-
-1. include the `wp-less/lib/helper/ThemeHelper.php` file;
-1. call `less_add_variable('@default_color', '#fff')`
-
-= I want to create a new custom LESS function =
-LESS PHP 0.3.1. introducted a new way to register functions without subclassing the compiler.
-
-If you initialized the class by yourself, do it this way:
-`$WPLessPlugin->registerFunction('double', 'lessphp_double');`
-
-If you don't manage the plugin by yourself:
-`WPPluginToolkitPlugin::getInstance('WPLess')->registerFunction('double', 'lessphp_double');`
-
-And if you want to do that from a theme, with less code:
-
-1. include the `wp-less/lib/helper/ThemeHelper.php` file;
-1. call `less_register_function('double', 'lessphp_double')`
-
-**Notice**: in this example, we assume `lessphp_double` is a valid [PHP callback](http://php.net/manual/en/language.pseudo-types.php#language.types.callback), as stated in `lessphp` documentation.
+It covers topics like path customization, declaring LESS variables from PHP, creating new LESS functions etc.
 
 == Upgrade Notice ==
+
+= 1.5 =
+
+Some changes in the API may breaks compatibility with your PHP code dealing with `wp-less`.
+
+Please [open issues](https://github.com/oncletom/wp-less/issues) and describe your technical problems [if the usage is not documented](https://github.com/oncletom/wp-less/tree/master/doc).
 
 = 1.4 =
 
