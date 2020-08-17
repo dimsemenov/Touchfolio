@@ -202,6 +202,9 @@ function dsframework_scripts() {
 
 		wp_enqueue_script( 'jquery' );
 
+		/* include jquery migrate to make deprecated functions like $.browser work in WP 5.5 */
+		wp_enqueue_script( 'jquery-migrate' );
+
 		if ( is_page_template('ds-gallery-masonry-template.php') ) {
 		    wp_enqueue_script( 'jquery.masonry', DS_THEME_PATH . '/js/jquery.masonry.min.js' );
 		} else {
