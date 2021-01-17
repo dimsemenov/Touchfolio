@@ -10,19 +10,34 @@ class WPLessConfiguration extends WPPluginToolkitConfiguration
   /**
    * Refers to the version of the plugin
    */
-  const VERSION =   '1.4';
+  const VERSION =   '1.8.0';
 
-  /**
-   * @protected
-   */
-  protected $variables = array();
 
-  /**
-   * @protected
-   * @see http://leafo.net/lessphp/docs/index.html#custom_functions
-   */
-  protected $functions = array();
 
+	/**
+	 * Current compilation strategy
+	 *
+	 * @since 1.5
+	 * @protected
+	 * @var string
+	 */
+	protected $compilation_strategy = 'deep';
+
+	/**
+	 * Available compilation strategies
+	 *
+	 * @since 1.5
+	 * @var array
+	 */
+	protected $compilation_strategies = array('legacy', 'always', 'deep');
+
+	/**
+	 * Time to live before pruning CSS cache
+	 *
+	 * @protected
+	 * @var int delay in seconds
+	 */
+	protected $ttl = 432000;    // 5 days
 
   protected function configure()
   {
@@ -31,74 +46,80 @@ class WPLessConfiguration extends WPPluginToolkitConfiguration
 
   protected function configureOptions()
   {
-    $this->setVariables(array());
+	  if (defined('WP_LESS_COMPILATION') && WP_LESS_COMPILATION)
+	  {
+		  $this->setCompilationStrategy(WP_LESS_COMPILATION);
+	  }
+
+	  //previous setting can be overridden for special reasons (dev/prod for example)
+	  if ((defined('WP_DEBUG') && WP_DEBUG) || (defined('WP_LESS_ALWAYS_RECOMPILE') && WP_LESS_ALWAYS_RECOMPILE))
+	  {
+		  $this->setCompilationStrategy('always');
+	  }
   }
 
-  /**
-   * Set global Less variables
-   * 
-   * @since 1.4
-   */
-  public function addVariable($name, $value)
-  {
-    $this->variables[$name] = $value;
-  }
+	/**
+	 * Current compilation strategy
+	 *
+	 * @api
+	 * @since 1.5
+	 * @return string Active compilation strategy
+	 */
+	public function getCompilationStrategy()
+	{
+		return $this->compilation_strategy;
+	}
 
-  /**
-   * Returns the registered variables
-   * 
-   * @since 1.4
-   * @return array
-   */
-  public function getVariables()
-  {
-    return $this->variables;
-  }
+	/**
+	 * Always recompile
+	 *
+	 * @since 1.5
+	 * @return bool
+	 */
+	public function alwaysRecompile()
+	{
+		return $this->compilation_strategy === 'always';
+	}
 
-  /**
-   * Set global Less variables
-   * 
-   * @since 1.4
-   */
-  public function setVariables(array $variables)
-  {
-    $this->variables = $variables;
-  }
+	/**
+	 * Set compilation strategy
+	 *
+	 * @api
+	 * @since 1.5
+	 * @param $strategy string Actual compilation "strategy"
+	 */
+	public function setCompilationStrategy($strategy)
+	{
+		if (!in_array($strategy, $this->compilation_strategies))
+		{
+			throw new WPLessException('Unknown compile strategy: ['.$strategy.'] provided.');
+		}
 
-  /**
-   * Return LESS functions
-   * 
-   * @since 1.4.2
-   * @return array
-   */
-  public function getFunctions()
-  {
-    return $this->functions;
-  }
+		$this->compilation_strategy = $strategy;
+	}
 
-  /**
-   * Registers a new LESS function
-   * 
-   * @param string $name
-   * @param Closure|function $callback
-   * @param array $scope CSS handles to limit callback registration to (if empty, applies to every stylesheet) – not used yet
-   * @see http://leafo.net/lessphp/docs/index.html#custom_functions
-   */
-  public function registerFunction($name, $callback, $scope = array())
-  {
-    $this->functions[$name] = array(
-      'callback' => $callback,
-      'scope' => $scope,
-    );
-  }
+	/**
+	 * Retrieves the TTL of a compiled CSS file
+	 *
+	 * @api
+	 * @since 1.5
+	 * @return int Time to live of a compiled CSS file
+	 */
+	public function getTtl()
+	{
+		return $this->ttl;
+	}
 
-  /**
-   * Unregisters a LESS function
-   * 
-   * @see http://leafo.net/lessphp/docs/index.html#custom_functions
-   */
-  public function unregisterFunction($name)
-  {
-    unset($this->functions[$name]);
-  }
+    /**
+     * Sets the TTL fo a compiled CSS file
+     *
+     * @api
+     * @param $ttl
+     * @since 1.5.1
+     */
+    public function setTtl($ttl)
+    {
+        $this->ttl = (int)$ttl;
+    }
+
 }
