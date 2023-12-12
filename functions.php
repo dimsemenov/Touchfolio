@@ -78,7 +78,7 @@ define('ADMIN_DIR', get_template_directory_uri() . '/admin/');
 define('LAYOUT_PATH', ADMIN_PATH . '/layouts/');
 
 $themedata = wp_get_theme(get_template_directory() . '/style.css');
-define('THEMENAME', $themedata->get['Name']);
+//define('THEMENAME', $themedata->get['Name']);
 define('OPTIONS', 'of_options');
 define('BACKUPS','of_backups');
 
